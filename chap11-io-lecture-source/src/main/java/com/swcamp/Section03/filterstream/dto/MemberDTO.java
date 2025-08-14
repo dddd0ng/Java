@@ -1,18 +1,20 @@
 package com.swcamp.Section03.filterstream.dto;
 
-public class MemberDTO {
+import java.io.Serializable;
 
+/* 설명. 객체 입출력의 대상이 되는 클래스는 Serializable 인터페이스를 구현해야 한다. */
+public class MemberDTO implements Serializable {
 
-    @Override
-    public String toString() {
-        return "MemberDTO{" +
-                "id='" + id + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                ", gender=" + gender +
-                '}';
+//    private static final long serialVersionUID = 1L;
+
+    private String id;
+    private String pwd;
+    private String name;
+    private String email;
+    private int age;
+    private char gender;
+
+    public MemberDTO() {
     }
 
     public MemberDTO(String id, String pwd, String name, String email, int age, char gender) {
@@ -23,13 +25,6 @@ public class MemberDTO {
         this.age = age;
         this.gender = gender;
     }
-
-    private String id;
-    private String pwd;
-    private String name;
-    private String email;
-    private int age;
-    private char gender;
 
     public String getId() {
         return id;
@@ -79,6 +74,15 @@ public class MemberDTO {
         this.gender = gender;
     }
 
-    public MemberDTO() {
+    @Override
+    public String toString() {
+        return "MemberDTO{" +
+                "id='" + id + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                '}';
     }
 }

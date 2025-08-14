@@ -1,7 +1,7 @@
 package com.swcamp.Section03.filterstream;
 
 import java.io.*;
-
+/* 설명. transient 키워드가 달린 필드는 객체 입출력의 직렬화에서 제외함(보안성)*/
 public class Application3 {
     public static void main(String[] args) {
 
