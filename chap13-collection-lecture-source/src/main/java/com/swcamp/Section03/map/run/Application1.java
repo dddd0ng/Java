@@ -3,7 +3,9 @@ package com.swcamp.Section03.map.run;
 import com.swcamp.Section01.list.dto.BookDTO;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class Application1 {
     public static void main(String[] args) {
@@ -35,5 +37,33 @@ public class Application1 {
         /* 설명. Value가 중복되는 경우*/
         hMap.put(44,128.0);
         System.out.println("value가 중복되는 경우 " + hMap);
+
+        /* 설명. Map을 활용해보기*/
+        Map<String, String> hMap2 = new HashMap<>();
+        hMap2.put("one","java 17");
+        hMap2.put("two", "mariaDB 10");
+        hMap2.put("three", "servlet/jsp");
+        hMap2.put("four", "spring 3.0");
+        hMap2.put("five", "vue");
+
+        System.out.println("hMap2 = " + hMap2); //세로로 찍어내고싶으면 순회해야함
+
+        /* 설명. Map에 담긴 값을 순회해서 확인하는 방법*/
+        //keySet()을 활용해 Key를 Set으로 바꾸고 iterator를 돌리는 방법
+        Set<String> keys = hMap2.keySet();
+        Iterator<String> iter = keys.iterator();
+        while (iter.hasNext()) {
+            String key = iter.next();
+            System.out.println("key : " + key + ", value : " + hMap2.get(key));
+        }
+        System.out.println("===================");
+        //entrySet()을 활용하는 방법(Key와 value를 묶은 Entry 타입을 통해 key없이 value 추출 가능)
+        //Map을 통해서 접근해야되는 외부 인터페이스 Entry타입
+        Set<Map.Entry<String,String>> entrySet = hMap2.entrySet();
+        Iterator<Map.Entry<String,String>> iter2 = entrySet.iterator();
+        while (iter2.hasNext()) {
+            Map.Entry<String,String> entry = iter2.next();
+            System.out.println("key : " + entry.getKey() + ", value : " + entry.getValue());
+        }
     }
 }
