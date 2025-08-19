@@ -15,7 +15,7 @@ public class Application4 {
         members[2] = new MemberDTO("user03", "pass03", "강감찬", "kang@gmail.com"
                 , 38, '남');
 
-        String path = "src/main/java/com/ohgiraffers/section03/filterstream/testObject.txt";
+        String path = "src/main/java/com/swcamp/Section03/filterstream/testObject.txt";
         File file = new File(path);
 
         ObjectOutputStream oos = null;
