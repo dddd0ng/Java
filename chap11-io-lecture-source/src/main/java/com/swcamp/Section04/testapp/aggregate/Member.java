@@ -1,8 +1,9 @@
 package com.swcamp.Section04.testapp.aggregate;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Member {
+public class Member implements Serializable {
     private int memNo;
     private String id;
     private String pwd;
@@ -10,6 +11,10 @@ public class Member {
     private String[] hobbies;
     private BloodType bloodType;
     private AccountStatus accountStatus;
+
+    public Member(){
+
+    }
 
     /* 설명. 회원가입 시 사용자가 입력한 값을 지닌 Member 객체가 되기 위한 생성자*/
     public Member(String id, String pwd, int age, String[] hobbies, BloodType bloodType) {
@@ -20,17 +25,14 @@ public class Member {
         this.bloodType = bloodType;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "memNo=" + memNo +
-                ", id='" + id + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", age=" + age +
-                ", hobbies=" + Arrays.toString(hobbies) +
-                ", bloodType=" + bloodType +
-                ", accountStatus=" + accountStatus +
-                '}';
+    public Member(int memNo, String id, String pwd, int age, String[] hobbies, BloodType bloodType, AccountStatus accountStatus) {
+        this.memNo = memNo;
+        this.id = id;
+        this.pwd = pwd;
+        this.age = age;
+        this.hobbies = hobbies;
+        this.bloodType = bloodType;
+        this.accountStatus = accountStatus;
     }
 
     public int getMemNo() {
@@ -89,16 +91,17 @@ public class Member {
         this.accountStatus = accountStatus;
     }
 
-    public Member(int memNo, String id, String pwd, int age, String[] hobbies, BloodType bloodType, AccountStatus accountStatus) {
-        this.memNo = memNo;
-        this.id = id;
-        this.pwd = pwd;
-        this.age = age;
-        this.hobbies = hobbies;
-        this.bloodType = bloodType;
-        this.accountStatus = accountStatus;
-    }
 
-    public Member() {
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memNo=" + memNo +
+                ", id='" + id + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", age=" + age +
+                ", hobbies=" + Arrays.toString(hobbies) +
+                ", bloodType=" + bloodType +
+                ", accountStatus=" + accountStatus +
+                '}';
     }
 }

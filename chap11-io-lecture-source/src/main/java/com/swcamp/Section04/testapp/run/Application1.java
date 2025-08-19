@@ -7,8 +7,7 @@ import java.util.Scanner;
 public class Application1 {
 
     private static final MemberService ms = new MemberService();
-
-
+    private static int chooseMemNo;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -32,7 +31,7 @@ public class Application1 {
 
             switch(input){
                 case 1: ms.findAllMembers(); break;
-                case 2: break;
+                case 2: ms.findMemberBy(chooseMemNo); break;
                 case 3: break;
                 case 4: break;
                 case 5: break;
@@ -43,5 +42,11 @@ public class Application1 {
                     System.out.println("번호를 잘못 입력하셨습니다.");
             }
         }
+
+        }
+    private static Object chooseMemNo(){
+        Scanner sc2 = new Scanner(System.in);
+        System.out.println("해당 회원 번호를 입력하세요 : ");
+        return sc2.nextInt();
     }
-}
+    }
