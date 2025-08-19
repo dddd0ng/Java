@@ -1,5 +1,6 @@
 package com.swcamp.Section04.testapp.service;
 
+import com.swcamp.Section04.testapp.aggregate.AccountStatus;
 import com.swcamp.Section04.testapp.aggregate.Member;
 import com.swcamp.Section04.testapp.repository.MemberRepository;
 
@@ -38,5 +39,26 @@ public class MemberService {
         } else {                  //회원 조회가 안되는 경우
         }
         System.out.println(memNo + "번호의 회원은 존재하지 않습니다.");
+    }
+
+    public void registMember(Member registMember) {
+        /* 설명. 회원가입에서 입력받은 값을 제외하고도 두 개의 데이터 추가*/
+        // 회원 번호 생성
+        int lastNo = memberRepository.findLastMemberNo();
+        registMember.setMemNo(lastNo + 1);
+
+
+        // 회원 활성화 상태 추가
+        registMember.setAccountStatus(AccountStatus.ACTIVE);
+
+
+        //DML의 성공 여부는 int값으로 들어옴
+        int result = memberRepository.registMember(registMember);
+
+        if(result == 1) {
+            System.out.println(registMember.getId()+ "회원님 환영합니다!");
+        }else{
+            System.out.println("회원 가입 실패");
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.swcamp.Section04.testapp.repository;
 import com.swcamp.Section04.testapp.aggregate.AccountStatus;
 import com.swcamp.Section04.testapp.aggregate.BloodType;
 import com.swcamp.Section04.testapp.aggregate.Member;
+import com.swcamp.Section04.testapp.stream.MyObjectOutput;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -81,5 +82,39 @@ public class MemberRepository {
             }
         }
         return null;
+    }
+
+    public int findLastMemberNo() {
+    return memberList.get(memberList.size()-1).getMemNo();
+    }
+
+    public int registMember(Member registMember) {
+
+
+        MyObjectOutput moo = null;
+        int result = 0;
+        try {
+            moo = new MyObjectOutput(new BufferedOutputStream(new FileOutputStream(file, true
+            )));
+            moo.writeObject(registMember);
+            moo.flush(); //buffered때매 출력할때 필요, 없으면 값안나옴
+            //컬렉션에 담긴 기존 회원을 지우고 다시 파일의 정보를 토대로
+            //컬렉션이 회원으로 채워지도록 작성
+            memberList.clear();
+            loadMembers();
+
+            result= 1;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                if (moo != null) moo.close();
+            }catch(IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return result;
     }
 }
