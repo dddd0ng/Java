@@ -60,5 +60,43 @@ public class MemberService {
         }else{
             System.out.println("회원 가입 실패");
         }
+
+    }
+    public Member findMemberForMod(int memNo){
+        Member selectedMember = memberRepository.findMemberBy(memNo);
+
+        Member copyMember = null;
+        if (selectedMember != null) {
+            /* 설명. 프론트로 반환하기 전에 사본 만들어 Repository가 가진 회원 객체 대신 사본을 반환함(feat. 오염 방지)*/
+            copyMember = new Member();
+//            Member copyMember = new Member(); <= 지역때매 Return에 있는 copyMember못써서
+//            // 지역에서 따로 초기화하고 null값 생성, copyMember = new Member(); 초기화
+            copyMember.setMemNo(selectedMember.getMemNo());
+            copyMember.setId(selectedMember.getId());
+            copyMember.setPwd(selectedMember.getPwd());
+            copyMember.setAge(selectedMember.getAge());
+
+            /* 설명. 취미의 경우는 배열이므로 깊은 복사를 해 줘야함(.clone())*/
+            String[] copiedHobbies = selectedMember.getHobbies().clone();
+            copyMember.setHobbies(copiedHobbies);
+            copyMember.setBloodType(selectedMember.getBloodType());
+            copyMember.setAccountStatus(selectedMember.getAccountStatus());
+        } else {
+            System.out.println("그런 회원은 없네요.");
+        }
+
+        return copyMember;
+    }
+
+
+    public void modifyMember(Member reformedMember) {
+        int result = memberRepository.modifyMember(reformedMember);
+        //memberRepository => update tbl_member set age = 1, ~~~ <= DB측면
+
+        if (result > 0 ) { //result == 1보다 result > 0 을 많이 씀
+            System.out.println(reformedMember.getId()+"회원님의 정보가 수정 되었습니다.");
+        }else{
+            System.out.println("회원 정보 수정이 실패하였습니다.");
+        }
     }
 }

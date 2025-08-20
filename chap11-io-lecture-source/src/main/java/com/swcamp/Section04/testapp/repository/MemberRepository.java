@@ -117,4 +117,17 @@ public class MemberRepository {
 
         return result;
     }
+
+    public int modifyMember(Member reformedMember) {
+        /* repository가 가진 컬렉션의 회원부터 수정*/
+        for (int i = 0; i < memberList.size(); i++) {
+            if(memberList.get(i).getMemNo() == reformedMember.getMemNo()) {
+                memberList.set(i, reformedMember); // i번째 (수정 할)회원을 교체
+                saveMembers(memberList);       // 교체 할 회원이 포함된 전체 회원으로 파일을 다시 덮어씌움
+            return 1;
+            }
+        }
+
+        return 0;
+    }
 }
