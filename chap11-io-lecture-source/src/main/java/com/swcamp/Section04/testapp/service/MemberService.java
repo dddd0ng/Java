@@ -37,8 +37,8 @@ public class MemberService {
         if (findMember != null) { // 회원이 조회 되는 경우
             System.out.println("회원 조회 성공 : " + findMember);
         } else {                  //회원 조회가 안되는 경우
-        }
-        System.out.println(memNo + "번호의 회원은 존재하지 않습니다.");
+            System.out.println(memNo + "번호의 회원은 존재하지 않습니다.");}
+
     }
 
     public void registMember(Member registMember) {
@@ -97,6 +97,16 @@ public class MemberService {
             System.out.println(reformedMember.getId()+"회원님의 정보가 수정 되었습니다.");
         }else{
             System.out.println("회원 정보 수정이 실패하였습니다.");
+        }
+    }
+
+    public void removeMember(int memNo) {
+        int result = memberRepository.removeMember(memNo);
+
+        if (result>0){
+            System.out.println("회원님 그동안 감사했습니다.");
+        }else {
+            System.out.println("회원탈퇴 실패");
         }
     }
 }

@@ -42,7 +42,13 @@ public class Application1 {
 
                     break;
 
-                case 5: break;
+                case 5:
+                    /* 설명. soft delete할 예정*/
+                    ms.removeMember(chooseMemNo());
+                    //delete from tbl_menu
+                    // where mem_no = ? <= ? 부분
+
+                    break;
                 case 9:
                     System.out.println("프로그램을 종료하겠습니다.");
                     return;
@@ -62,7 +68,7 @@ public class Application1 {
             System.out.println("=====회원 정보 수정 서브 메뉴=====");
             System.out.println("1.패스워드");
             System.out.println("2.나이");
-            System.out.println("3.취미");
+            System.out.println("3.취미                                            ");
             System.out.println("4.혈액형");
             System.out.println("9.메인 메뉴로 돌아가기");
             System.out.print("수정 할 번호를 입력하세요 : ");
