@@ -9,6 +9,8 @@ package com.swcamp.Section03.liskovsustitution.problem;
 
 //규약을 잘 내려야함
 
+import java.util.ArrayList;
+
 public class Application1 {
     public static void main(String[] args) {
         System.out.println("직사각형 테스트");
@@ -19,6 +21,8 @@ public class Application1 {
         BadRectangle badSquare = new BadSquare();
         testRectangle(badSquare);
     }
+
+
 
     private static void testRectangle(BadRectangle badRectangle) {
         badRectangle.setWidth(5);
