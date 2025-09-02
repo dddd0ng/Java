@@ -9,8 +9,8 @@
 <%--ul>(li>a)*3--%>
 <ul>
     <li><a href="response">응답 확인하기</a></li>
-    <li><a href="#">응답 헤더 확인하기</a></li>
-    <li><a href="#">응답 상태 코드 확인하기</a></li>
+    <li><a href="headers">응답 헤더 확인하기</a></li>
+    <li><a href="status">응답 상태 코드 확인하기</a></li>
 </ul>
 </body>
 </html>

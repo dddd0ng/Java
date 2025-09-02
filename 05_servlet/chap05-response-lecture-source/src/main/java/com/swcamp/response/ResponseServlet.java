@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
+//webapp/META-INF -> dev폴더/conf/context.xml
 @WebServlet("/response")
 public class ResponseServlet extends HttpServlet {
     @Override
