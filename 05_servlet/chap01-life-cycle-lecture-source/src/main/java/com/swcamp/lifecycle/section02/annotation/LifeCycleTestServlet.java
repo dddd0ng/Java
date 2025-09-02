@@ -8,7 +8,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 
 import java.io.IOException;
-@WebServlet(value= "/annotation-lifecycle")
+//어노테이션 방식, 속성 추가 서블릿
+@WebServlet(value= "/annotation-lifecycle", loadOnStartup =2)
 public class LifeCycleTestServlet extends HttpServlet {
     public LifeCycleTestServlet(){
 
