@@ -25,9 +25,7 @@ public class DeleteSessionDataServlet extends HttpServlet {
         //HttpSession 객체의 Attribute 값들을 무효화(로그아웃 개념으로 많이 사용)
 //        제이세션아이디-웹에선 제공, 모든 다른 프론트랑 연동되는 내용은 아님,
 
-
 //포워드 문제해결하기위해 리다이렉트 -> 리다이렉트 문제 해결하기 위해 쿠키,세션
-
 
 //        System.out.println("attribute 무효화 후 firstname :"
 //                + session.getAttribute("firstName"));

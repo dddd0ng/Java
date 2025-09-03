@@ -18,6 +18,8 @@ public class OtherServlet extends HttpServlet {
 //        resp.sendRedirect("redirect");
 //        redirect받으면 무조건 Get 요청
 
+        // 응답, 요청을 받고나면 정보가 있던 서블릿 객체가 사라짐
+
         //성공 또는 실패했을때 어디로 가는지 어떤 페이지로 넘어가는지 선정하는것 -> 컨트롤러
         resp.sendRedirect("redirect?test=abc");
         //url이 지저분해질 수 있음 (해결방안 2가지 있음)
