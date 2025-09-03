@@ -23,7 +23,7 @@ public class PayloadServlet extends HttpServlet {
         System.out.println("name="+name);
 
         
-        /* 설명. parameter들의 Key값들을 한번에 순회하며 파악 할 수 있긷 하다.(feat.Enumeration)*/
+        /* 설명. parameter들의 Key값들을 한번에 순회하며 파악 할 수 있기도 하다.(feat.Enumeration)*/
         Enumeration<String> KeyNames = req.getParameterNames();
         while(KeyNames.hasMoreElements()) {
             System.out.println(KeyNames.nextElement());
