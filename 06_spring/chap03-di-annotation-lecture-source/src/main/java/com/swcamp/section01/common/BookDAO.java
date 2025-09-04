@@ -1,4 +1,4 @@
 package com.swcamp.section01.common;
 
-public class BookDAO {
+public interface BookDAO {
 }
