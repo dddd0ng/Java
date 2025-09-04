@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--<tag/>쓰면 열고닫고 태그 2번쓸 필요없음-->
+<!--    <bean id="account" class="com.swcamp.common.PersonalAccount">-->
+<!--        <constructor-arg index="0" value="110-234-4567890"/>-->
+<!--        <constructor-arg index="1" value="20"/>-->
+<!--&lt;!&ndash;account이름이 달린 bean 생성&ndash;&gt;-->
+<!--    </bean>-->
+    <bean id="account" class="com.swcamp.common.PersonalAccount">
+        <constructor-arg index="0" value="110-234-4567890"/>
+        <constructor-arg index="1" value="20"/>
+    </bean>
+
+
+    <!--1.생성자 주입-->
+<!--<bean id="member" class="com.swcamp.common.MemberDTO">-->
+<!--    <constructor-arg name="sequence" value ="1"/>-->
+<!--    <constructor-arg name="name" value ="홍길동"/>-->
+<!--    <constructor-arg name="phone" value ="010-123-1234"/>-->
+<!--    <constructor-arg name="email" value ="hong@gmail.com"/>-->
+<!--    <constructor-arg name="personalAccount" ref="account"/>-->
+<!--&lt;!&ndash;  personalAccount이 이미 bean으로 account에 정의 되어 있으므로.  &ndash;&gt;-->
+
+<!--    <bean id="member" class="com.swcamp.common.MemberDTO">-->
+<!--        <constructor-arg name="sequence" value = "1"/>-->
+<!--        <constructor-arg name="name" value = "홍길동"/>-->
+<!--        <constructor-arg name="phone" value = "010-123-1234"/>-->
+<!--        <constructor-arg name="email" value = "hong@gmail.com"/>-->
+<!--        <constructor-arg name="personalAccount" ref="account"/>-->
+<!--    </bean>-->
+
+<!--</bean>-->
+
+
+
+    <!--2.세터(setter)주입-->
+<!--프로퍼티라 표현 함, 바꾸면 기본생성자를 못읽음-->
+<!--@NoArgsConstructor써줘야함, 프로퍼티쓸때엔-->
+    <bean id="member" class="com.swcamp.common.MemberDTO">
+        <property name="sequence" value = "1"/>
+        <property name="name" value = "홍길동"/>
+        <property name="phone" value = "010-123-1234"/>
+        <property name="email" value = "hong@gmail.com"/>
+        <property name="personalAccount" ref="account"/>
+    </bean>
+
+
+</beans>
