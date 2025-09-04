@@ -3,6 +3,11 @@ package com.swcamp.section01.autowired.subsection01.field;
 import com.swcamp.section01.common.BookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+//서비스=DAO
+
+//순수자바, 순수xml
+//어노테이션을 활용 스프링
+
 
 //di에서 필드주입 학습
 @Service //서비스 계층도 서비스계층의 클래스인지 컴포넌트
@@ -16,6 +21,7 @@ public class BookService { // 뭘 의존하는지 -> db에 친한친구? 트랜�
 
     @Autowired //(자동으로 연결해줘 같은 느낌)
     private BookDAO bookDAO; // bookdao (could not autowire -> bookdao에는 연결된애가없어서
+//   위에랑 같은값 private BookDAO bookDAO = new BookDAOImpl();
     //BookDAOImpl엔 어노테이션있어서 bookdao implements
-
+    //순수 어노테이션방식을 하면 필드주입가능.알아서 스프링컨테이너 안에 bean을 찾아서 객체를 넣어줌
 }
