@@ -1,4 +1,4 @@
-package com.swcamp.section02.subsection02.qualifier;
+package com.swcamp.section02.annotation.subsection02.qualifier;
 
 import com.swcamp.section02.annotation.common.Pokemon;
 import org.springframework.beans.factory.annotation.Autowired;
