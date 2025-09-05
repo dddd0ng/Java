@@ -1,6 +1,5 @@
 package com.swcamp.section02.annotation.subsection03.collection;
 
-import com.swcamp.section02.annotation.subsection01.primary.PokemonService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

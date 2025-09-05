@@ -34,7 +34,7 @@ public class BookService { // 뭘 의존하는지 -> db에 친한친구? 트랜�
     }
 
     public BookDTO findBookBySequence(int sequence) {
-        return bookDAO.findBookBySequence(sequence);
+        return bookDAO.findBookBySequenceOf(sequence);
     }
 //   위에랑 같은값 private BookDAO bookDAO = new BookDAOImpl();
     //BookDAOImpl엔 어노테이션있어서 bookdao implements
