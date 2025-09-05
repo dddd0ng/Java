@@ -6,7 +6,7 @@ import java.util.Date;
 
 @NoArgsConstructor
 public class Bread extends Product {
-    private java.util.Date bakedDate; //생성시간
+    private java.util.Date bakedDate;  // 생성 시간
 
     public Bread(String name, int price, Date bakedDate) {
         super(name, price);
@@ -17,7 +17,7 @@ public class Bread extends Product {
     public String toString() {
         return "Bread{" +
                 "bakedDate=" + bakedDate +
-                '}';
+                "} " + super.toString();
     }
 
 }
