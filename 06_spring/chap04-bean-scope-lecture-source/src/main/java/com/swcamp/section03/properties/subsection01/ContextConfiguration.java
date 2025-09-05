@@ -35,19 +35,19 @@ public class ContextConfiguration {
 
 
     @Bean
-    public Product carpBread(){
+    public Product carpBread() {
         return new Bread(carpBreadName, carpBreadPrice, new java.util.Date());
     }
 
     @Bean
-    public Product milk(){
+    public Product milk() {
         return new Beverage(milkName, milkPrice, milkCapacity);
     }
 
     @Bean
     public Product water(@Value("${beverage.water.name}") String waterName,
-                         @Value("${beverage.water.price}")int waterPrice,
-                         @Value("${beverage.water.capactiy}") int waterCapacity){
+                         @Value("${beverage.water.price}") int waterPrice,
+                         @Value("${beverage.water.capacity}") int waterCapacity) {
         return new Beverage(waterName, waterPrice, waterCapacity);
     }
 
