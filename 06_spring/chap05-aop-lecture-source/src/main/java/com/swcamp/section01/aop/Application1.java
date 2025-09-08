@@ -17,7 +17,12 @@ public class Application1 {
         System.out.println("======회원 한명 조회=======");
         System.out.println(memberService.findMemberBy(1));
 
+        //AfterThrowing Advice 확인용 요청
+//        System.out.println(memberService.findMemberBy(2));
+        //after returning 시 추가된 MemberDTO객체가 있어서 3으로 테스트(3으로 테스트 안돼서 2로 해봄, .add?복붙해보기)
+
     }
+
 
 
 }
