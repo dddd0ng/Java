@@ -2,7 +2,10 @@ package com.swcamp.chap02;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.awt.*;
 
@@ -35,6 +38,25 @@ public class MethodMappingTestController {
         //model에 담아두면 리다이렉트할때 값이 유지가됨
     }
 
+    @RequestMapping(value="/menu/modify", method= RequestMethod.POST)
+    public String modifyMenu(Model model){
+        model.addAttribute("message", "POST 방식의 메뉴 수정용 핸들러 메소드 호출함...");
+        
+        return "mappingResult";
+    }
+    
+    @GetMapping("/menu/delete") //Get만 받을거면 해당 어노테이션
+    public String getDeleteMenu(Model model){
+        model.addAttribute("message","GET 방식의 메뉴 삭제용 핸들러 메소드 호출함...");
+        
+        return "mappingResult";
+
+    }
+    @PostMapping("/menu/delete")
+    public String postDeleteMenu(Model model){
+        model.addAttribute("message", "POST 방식의 메뉴 삭제용 핸들러 메소드 호출함...");
+        return "mappingResult";
+    }
 
 
 }
