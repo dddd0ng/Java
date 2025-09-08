@@ -3,11 +3,11 @@
 #들여쓰기 및 동일한 키 값이 중복되지 않아 가독성이 좋음
 #주석을 # 하나로 사용하기 그나마 용이
 test:
-  value:hell world!
-  age:8
-
+  value : hell world!
+  age : 8
+#띄어쓰기 중요함
 server:
-  port:8080
+  port : 8080
 
 
 
