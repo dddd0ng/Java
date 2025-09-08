@@ -14,16 +14,16 @@ public class SpringConfiguration {
     public String testAge;
 
     /* 설명. @Value는 시스템 환경변수도 불러올 수 있다.*/
-
-    @Value("${username}")
-    public String username;
+//
+//    @Value("${username}")
+//    public String username;
 //시스템 변수에서도 값을 가져옴 (환경변수도)
 
     @Bean
     public Object propertyReadTest(){
         System.out.println("test value: " + testValue);
         System.out.println("testAge = " + testAge);
-        System.out.println("username = " + username);
+//        System.out.println("username = " + username);
 
         return new Object();
     }
