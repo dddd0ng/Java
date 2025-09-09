@@ -6,12 +6,18 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Map;
 
 //컨트롤러가 되면 requestMapping, getMapping을 할 수 있음(컨트롤러때매 할 수 있는것)
 @RequestMapping("/first") // 접두사를 이렇게 빼버릴수있음
 @Controller
+/* 설명. 이 컨트롤러 클래스의 핻늘러 메소드에서 Model에
+"id"또는 "name"이 키 값으로 담기면 HttpSession에 추가하라는 어노테이션*/
+/* 설명. HttpSession에서 제공하는 invalidate()가 아닌 SessionStatus에서
+제공하는 setComplete()을 통해서만 만료 할 수 있다.*/
+@SessionAttributes(names={"id","name"}) //스트링 배열처럼 던져주면 됨
 public class FirstController {
 //접두사, 접미사는 다음 챕터때
     //이런거보고 핸들러 메서드라고 함
@@ -124,11 +130,36 @@ public class FirstController {
         session.setAttribute("name","홍길동");
         return "first/loginResult";
     }
+
     @GetMapping("logout1")
     public String logoutTest1(HttpSession session) {
         session.invalidate();
-
         return "first/loginResult";
+    }
 
+    @GetMapping("login2")
+    public String logoutTest2(Model model, String id) {
+        model.addAttribute("id", id);
+        model.addAttribute("name","홍길동");
+        return "first/loginResult";
+    }
+
+
+    @GetMapping("logout2")
+    public String logoutTest2(SessionStatus sessionStatus){
+        sessionStatus.setComplete();
+        return "first/loginResult";
+    }
+
+    @GetMapping("body")
+    public void body(){}
+
+    @PostMapping("body")
+    public void bodyTest(@RequestBody String body,
+                         @RequestHeader("content-type") String contentType,
+                         @CookieValue(value="JSESSIONID") String sessionID) {
+        System.out.println("body = " + body);
+        System.out.println("contentType = " + contentType);
+        System.out.println("sessionID = " + sessionID);
     }
 }
