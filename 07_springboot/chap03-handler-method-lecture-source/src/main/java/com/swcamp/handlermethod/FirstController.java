@@ -2,12 +2,10 @@ package com.swcamp.handlermethod;
 //bean이 되기도 해야함, 스프링이 컨트롤러 계층인지 인지해야하므로
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -94,12 +92,43 @@ public class FirstController {
         return "first/messagePrinter";
     }
 
-
-    @GetMapping("search")
+@GetMapping("search")
     public void search(){}
 
+/* 설명. 핸들러 메소드에 우리가 작성한 클래스 (bean X, @Component X)
+* 를 매개변수로 작성하면 스프링이 기본 생성자를 활용해서 객체를 만들어주고,
+* setter로 값도 주입해준다. 이러한 클래스의 객체를 '커맨드 객체'라고 부른다.
+*
+* @ModelAttribute 어노테이션을 활용하면 커맨드 객체를 모델의
+* attribute에 바로 담아주며 이 후, view의 재료로 사용 할 수 있다.
+* (name 속성 작성 유무에 따라 화면에서 활용하는 방법이 다르다.)
+* */
     @PostMapping("search")
-    public String searchMenu(){
-        return "first/messagePrinter";
+    public String searchMenu(@ModelAttribute(name="menu")MenuDTO menu){
+        System.out.println("menu = " + menu);
+        return "first/searchResult";
+    }
+
+    @GetMapping("login")
+    public void login(){}
+
+    @PostMapping("login")
+    public String sessionTest1(String id, String pwd
+                            , HttpSession session) {
+
+        System.out.println("id = " + id);
+        System.out.println("pwd = " + pwd);
+        /* 설명. 넘어온 id와 pwd를 활용해 실제 db에서 회원 조회를 성공했다는 가정*/
+        session.setAttribute("id", id); //id 이런건 변수일뿐
+        session.setAttribute("pwd", pwd);
+        session.setAttribute("name","홍길동");
+        return "first/loginResult";
+    }
+    @GetMapping("logout1")
+    public String logoutTest1(HttpSession session) {
+        session.invalidate();
+
+        return "first/loginResult";
+
     }
 }
