@@ -80,8 +80,8 @@ public class FirstController {
 
         return "first/messagePrinter";
     }
-
-    /* 설명. @*/
+//주로 이 방법보다 위에 생략된 방법을 많이 씀
+    /* 설명. @RequestParam을 활용해 하나의 Map으로 받아 낼 수 있다.*/
     @PostMapping("modify2")
     public String modify2(Model model,
     @RequestParam Map<String, String> parameterMap){
@@ -94,4 +94,12 @@ public class FirstController {
         return "first/messagePrinter";
     }
 
+
+    @GetMapping("search")
+    public void search(){}
+
+    @PostMapping("search")
+    public String searchMenu(){
+        return "first/messagePrinter";
+    }
 }
