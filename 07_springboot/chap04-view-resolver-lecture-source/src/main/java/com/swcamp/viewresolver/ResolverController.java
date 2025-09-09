@@ -63,7 +63,7 @@ public String stringRedirect(Model model) {
 //모델만 썼을때 차이가 남, <=addObject 사용하면
         return mv;
     }
-
+//flash로 작성하면 1회성만 남음 (새로고침하면 사라짐)
     @GetMapping("modelandview-redirect-attr")
     public ModelAndView modelAndViewRedirectFlashAttr(ModelAndView mv,
                                                        RedirectAttributes rttr){
