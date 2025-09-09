@@ -3,6 +3,7 @@ package com.swcamp.viewresolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 /* 설명.
 * ViewResolver(뷰 리졸버) : 인터페이스를 구현한 ThymeleafViewResolver가 현재 처리하게 된다.
@@ -43,5 +44,32 @@ public String stringRedirect(Model model) {
         return "redirect:/";
 
     }
+/* 설명. forward시에는 Model에 재료를, redirect시에는 RedirectAttributes에 재료를 담는다.*/
 
+
+    @GetMapping("modelandview")
+    public ModelAndView modelAndViewTest(ModelAndView mv){
+        mv.addObject("forwardMessage","ModelAndView를 이용한 forward");
+        mv.setViewName("result");
+
+        return mv;
+    }
+
+    @GetMapping("modelandview-redirect")
+    public ModelAndView modelAndViewRedirect(ModelAndView mv){
+        /* 설명. url 경로 상에 쿼리스트링 형태로 파라미터가 넘어간다*/
+        mv.addObject("message2","ModelAndView를 이용한 redirect");
+        mv.setViewName("redirect:/");
+//모델만 썼을때 차이가 남, <=addObject 사용하면
+        return mv;
+    }
+
+    @GetMapping("modelandview-redirect-attr")
+    public ModelAndView modelAndViewRedirectFlashAttr(ModelAndView mv,
+                                                       RedirectAttributes rttr){
+       rttr.addFlashAttribute("flashMessage2",
+               "ModelAndView를 이용한 redirect attr");
+       mv.setViewName("redirect:/");
+       return mv;
+    }
 }

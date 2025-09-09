@@ -26,6 +26,30 @@
     const flashMessage1 = `[[${flashMessage1}]]`
     console.log('redirect로 넘어온 값 (feat.flashAttr): ', flashMessage1);
 </script>
+<!--핸들러 메소드 반환형?-->
+<h3>ModelAndView로 뷰 이름 지정해서 반환하기</h3>
+<button onclick="location.href='modelandview'">ModelAndView로 뷰 이름까지 지정해서 반환받기</button>
+<!--포워드 - 누르면 페이지 이동-->
+
+<!--리다이렉트-->
+<h3>ModelAndView로 redirect</h3>
+<button onclick="location.href='modelandview-redirect'">ModelAndView로 뷰 이름 반환하며 리다이렉트</button>
+<script>
+    // const message2 = `[[${message2}]]`;
+    const message2 = `[[${param.message2}]]`;
+    console.log('redirect로 넘어온 값2:',message2);
+</script>
+
+<!--플래시 리다이렉트-->
+<h3>ModelAndView로 redirect(feat.flashAttribute 추가)</h3>
+<button onclick="location.href='modelandview-redirect-attr'">
+    ModelAndView로 뷰 이름 반환하며 리다이렉트 & flash attr 사용하기
+</button>
+<script>
+    const flashMessage2 = `[[${flashMessage2}]]`;
+    console.log('redirect로 넘어온 값2(feat.flashAttr):',flashMessage2);
+</script>
+
 
 </body>
 </html>
