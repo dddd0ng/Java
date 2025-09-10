@@ -12,10 +12,15 @@
 <div th:if="${img != null}">
     <img th:src="${img}" width="200" height="200">
     <p th:text="${singleFileDescription}"></p>
+</div>
 
-
-
+<div th:if="${imgs !=null}">
+    <th:block th:each="img: ${imgs}"> <!--for each-->
+        <img th:src="${img}" width="150" height="150">
+    </th:block>
+    <p th:text="${multiFileDescription}"></p>
 
 </div>
+
 </body>
 </html>

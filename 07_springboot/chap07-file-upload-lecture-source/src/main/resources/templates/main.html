@@ -15,12 +15,15 @@
     파일: <input type="file" name="singleFile"> <br>
     파일 설명 : <input type="text" name="singleFileDescription"> <br>
     <input type="submit" value="업로드">
-
-
-
-
 </form>
 
 <h3>multi file upload</h3>
+<form action="mulit-file" method="post" enctype="multipart/form-data">
+    <!-- 파일하나라도 들어가면   enctype=인코딩타입 써야함 -->
+    파일: <input type="file" name="multiFiles" multiple> <br>
+    파일 설명 : <input type="text" name="multiFileDescription"> <br>
+    <input type="submit" value="업로드">
+</form>
+
 </body>
 </html>
