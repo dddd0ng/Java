@@ -9,6 +9,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Locale;
 
+/* 설명.
+* 1. bean을 다룰 수 있다.(필터와의 차이점)
+* 2.핸들러 메소드 직전/직후에 동작하여 전 후 처리를 한다.
+* (forward및 redirect일지라도 매번 핸들러 메소드 실행 시 동작)
+* 3.이후에 진행될 핸들러 메소드의 동작 여부를 제어 할 수 있다.(preHandle의 반환형을 통해)
+* 4.인터셉터 사용 목적
+*  :로그인할때 체크, 권한 체크(인증 및 인가), 업로드 파일 리사이징, 로케일(지역체크)
+*  프로그램 실행 시간 계산 작업 로그 처리(이 시간이 얼마나 걸리는지에 따라=cpu 처리 시간) 설정 등
+*  대신 인터셉터는 남용, 남발해서는 안됨
+* */
+
+
 
 @Component
 public class StopwatchInterceptor implements HandlerInterceptor {
