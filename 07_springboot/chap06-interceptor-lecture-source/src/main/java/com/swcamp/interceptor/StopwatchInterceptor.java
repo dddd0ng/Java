@@ -46,7 +46,7 @@ public class StopwatchInterceptor implements HandlerInterceptor {
         Locale locale = request.getLocale();
         System.out.println("locale = " + locale);
 
-        if("ko_KR".equals(locale)){ System.out.println("한국인이시군요!");}
+        if("ko_KR".equals(locale.toString())){ System.out.println("한국인이시군요!");}
 
         /* 설명. Service bean 활용(메소드 호출)*/
         testService.test();

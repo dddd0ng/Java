@@ -56,7 +56,7 @@ public class ExceptionHandlerController {
 
         /* 설명. @ExceptionHandler로 해당 컨트롤러별 예외처리를 하면 전역 설정이 사라짐, 필요하면 model에 재료 추가*/
 
-        model.addAttribute("exceptionMessage", "안돼!!");
+        model.addAttribute("exceptionMessage", "안됨");
 
         return "error/default";
     }
