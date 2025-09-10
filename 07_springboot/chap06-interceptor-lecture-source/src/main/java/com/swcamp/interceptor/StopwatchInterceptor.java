@@ -2,23 +2,46 @@ package com.swcamp.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Locale;
+
 
 @Component
 public class StopwatchInterceptor implements HandlerInterceptor {
+
+    InterceptorTestService testService;
+    @Autowired
+    public StopwatchInterceptor(InterceptorTestService testService) {
+        this.testService = testService;
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        /* 설명. 핸들러 인터셉터의 preHandler이 반환하는 boolean형에 따라 Controller의 핸들러 메소드 동작 여부 조절 가능*/
+//boolean 쓰는 이유? -> false를 반환하면 다른 핸들러 요청 반환 x(pre핸들러만 나옴)
+        //pre => 전처리
         System.out.println("preHandler 호출함(핸들러 메소드 이전에)");
 
+        //스탑워치 기능
         long startTime=System.currentTimeMillis();//시스템의 현재 시간을 밀리초 단위 long형으로 반환
         request.setAttribute("startTime", startTime);
-        /* 설명. 핸들러 인터셉터의 preHandler이 반환하는 boolean형에 따라 Controller의 핸들러 메소드 동작 여부 조절 가능*/
+
+        /* 설명. 사용자의 로케일 추출*/
+        Locale locale = request.getLocale();
+        System.out.println("locale = " + locale);
+
+        if("ko_KR".equals(locale)){ System.out.println("한국인이시군요!");}
+
+        /* 설명. Service bean 활용(메소드 호출)*/
+        testService.test();
+
         return true;
-    } //pre => 전처리
-//boolean ? -> false를 반환하면 핸들러 요청 반환 x
+    }
+
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         System.out.println("postHandler 호출함(핸들러 메소드 이후)");
