@@ -34,8 +34,8 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public String nullPointerExceptionHandler(){
-        System.out.println("이 Controller에서 NullPointer예외 발생 시 여기 오는지 확인");
+    public String nullPointerExceptionHandler() {
+        System.out.println("이 Controller에서 NullPointer 예외 발생 시 여기 오는지 확인");
 
         return "error/default";
     }
