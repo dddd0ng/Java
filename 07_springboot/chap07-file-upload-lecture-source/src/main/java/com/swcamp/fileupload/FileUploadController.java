@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +25,8 @@ public class FileUploadController {
     //파일 업로드할때
     @PostMapping("single-file")
     public String singleFile(@RequestParam MultipartFile singleFile,
-                             @RequestParam String singleFileDescription){//요청이니까 requestParam
+                             @RequestParam String singleFileDescription,
+                             RedirectAttributes rttr){//요청이니까 requestParam
 //singleFile = html에서 name과 같게(파일 이름)
         //singleFileDescription (파일 설명)
 
@@ -58,6 +60,11 @@ public class FileUploadController {
             file.put("filePath","/single/");
             file.put("singleFileDescription",singleFileDescription); //파일설명
 
+            /* 설명. 이후 Service계층을 통해 DB에 사용자가 업로드한 하나의 파일에 대한 내용을 저장하고 옴*/
+
+            rttr.addFlashAttribute("message",originFileName+"파일 업로드 성공!");
+            rttr.addFlashAttribute("img","/single/"+saveName);
+            rttr.addFlashAttribute("singleFileDescription",singleFileDescription);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

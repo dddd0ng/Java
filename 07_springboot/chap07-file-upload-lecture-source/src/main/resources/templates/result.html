@@ -8,6 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-<h1>파일 업로드 성공</h1>
+<h1 th:text="${message}"></h1>
+<div th:if="${img != null}">
+    <img th:src="${img}" width="200" height="200">
+    <p th:text="${singleFileDescription}"></p>
+
+
+
+
+</div>
 </body>
 </html>
