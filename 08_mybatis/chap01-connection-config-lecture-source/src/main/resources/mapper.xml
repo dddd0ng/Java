@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper  namespace="mapper"><!--페이지를 담고있는 이름을 적어줌 -> namespace =""-->
+    <select id="selectNow" resultType="java.util.Date">
+        select NOW()
+    </select>
+
+</mapper>
