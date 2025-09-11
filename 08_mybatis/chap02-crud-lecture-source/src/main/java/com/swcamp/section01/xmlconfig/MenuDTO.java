@@ -5,6 +5,7 @@ public class MenuDTO {
     private String menuName;
     private int menuPrice;
     private int categoryCode;
+    private String orderableStatus;
 
     public MenuDTO() {
     }
@@ -57,7 +58,7 @@ public class MenuDTO {
         this.orderableStatus = orderableStatus;
     }
 
-    private String orderableStatus;
+
 
     @Override
     public String toString() {
