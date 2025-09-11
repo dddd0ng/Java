@@ -5,9 +5,11 @@
 
 <mapper namespace="MenuMapper">
 
+
+
 <!--   resultMap의 column속성은 ResultSet의 컬럼명을 써야함,(커럼명 또는 받침)-->
 <!--    매핑을 필요한 것만 매핑해도 문제없이 객체에 담겨 반환된다.  -->
-    <resultMap id="menuResultMap" type="com.swcamp.section01.xmlconfig.MenuDTO">
+    <resultMap id="menuResultMap" type="com.swcamp.section01.xmlconfig.MenuDTO"> <!--typeAlias적용 이후 -->
 <!--        type에는 풀 패키지명으로 적어줘야함, 필드값에 매칭시켜주는것(MenuDTO ->[PK] menuCode)-->
         <id property="menuCode" column="MENU_CODE"/>
         <!--        pk컬럼은 id태그를 사용하면 속도 향상의 이점\-->
@@ -40,4 +42,27 @@
 <!--    WHERE MENU_CODE = ?     -->
     WHERE MENU_CODE = #{menuCode}
 </select>
+
+
+    <!--parameterType => DTO or Map으로 넘길 수 있음-->
+<!--insert id="insertMenu" parameterType="com.swcamp.section01.xmlconfig.MenuDTO"   -->
+<insert id="insertMenu" parameterType="MenuDTO">
+    INSERT
+      INTO TBL_MENU
+    (
+      MENU_NAME
+    , MENU_PRICE
+    , CATEGORY_CODE
+    , ORDERABLE_STATUS
+    )
+    VALUES
+    (
+      #{menuName}
+    , #{menuPrice}
+    , #{categoryCode}
+    , 'Y'
+    )
+</insert>
+
+
 </mapper>

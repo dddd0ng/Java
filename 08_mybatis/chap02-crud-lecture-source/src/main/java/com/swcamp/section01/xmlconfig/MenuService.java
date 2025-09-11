@@ -29,6 +29,24 @@ public class MenuService {
         return menu;
 
     }
+
+    //커밋과 롤백
+    public boolean registMenu(MenuDTO menu) {
+    SqlSession sqlSession = getSqlSession();
+
+    int result=menuDAO.insertMenu(sqlSession,menu);
+
+    //트랜잭션 처리
+    if(result==1){
+        sqlSession.commit();
+    }else {
+        sqlSession.rollback();
+    }
+
+    sqlSession.close();
+
+    return result==1? true:false;
+    }
 }
 
 // 서비스에서 하는거 커넥션객체 생성,소멸

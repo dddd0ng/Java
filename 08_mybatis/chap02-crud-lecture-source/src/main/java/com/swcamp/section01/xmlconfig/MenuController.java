@@ -42,4 +42,24 @@ public class MenuController {
             printResult.printErrorMessage(menuCode + "번의 메뉴는 없습니다!");
         }
     }
+//값을 꺼내 파싱
+    public void registMenu(Map<String, String> parameter) {
+        String menuName = parameter.get("menuName");
+        int menuPrice = Integer.parseInt(parameter.get("menuPrice"));
+        int categoryCode = Integer.parseInt(parameter.get("categoryCode"));
+
+        MenuDTO menu = new MenuDTO();
+        menu.setMenuName(menuName);
+        menu.setMenuPrice(menuPrice);
+        menu.setCategoryCode(categoryCode);
+
+        /* 설명. DML 작업 이후 Controller로는 boolean형이 돌아오게 작성할 예정*/
+        if(menuService.registMenu(menu)){
+
+            printResult.printSuccessMessage("regist");
+        }else{
+            printResult.printErrorMessage("메뉴 추가 실패");
+
+        }
+    }
 }

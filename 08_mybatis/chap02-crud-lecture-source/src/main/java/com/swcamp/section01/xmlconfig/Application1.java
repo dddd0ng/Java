@@ -26,6 +26,9 @@ public class Application1 {
                 case 2:
                     mc.findMenuByMenuCode(inputMenuCode());
                     break;
+                case 3:
+                    mc.registMenu(inputMenu());
+                    break;
                 case 9:
                     System.out.println("프로그램을 종료하겠습니다.");
                     return;
@@ -34,6 +37,9 @@ public class Application1 {
             }
         } while(true);
     }
+
+
+
     /* 설명. Map<String, String> 형태로 web에서 처럼 key,value형태로 넘길 예정*/
     //request의 parameter개념으로 key,value형태로 넘길 예정
     private static Map<String, String> inputMenuCode() {
@@ -46,4 +52,33 @@ public class Application1 {
 
         return parameter;
     }
+
+
+    private static Map<String, String> inputMenu() {
+        Scanner sc = new Scanner(System.in);
+        //입력받는 모든 값 String으로 받기
+        System.out.print("신규 메뉴의 이름을 입력해 주세요 : ");
+        String menuName = sc.nextLine();
+        System.out.print("신규 메뉴의 가격을 입력해 주세요 : ");
+        String menuPrice = sc.nextLine();
+        System.out.print("신규 메뉴의 카테고리 코드를 입력해 주세요 : ");
+        String categoryCode = sc.nextLine();
+
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("menuName", menuName);
+        parameter.put("menuPrice", menuPrice);
+        parameter.put("categoryCode", categoryCode);
+
+        return parameter;
+    }
+
+
+
+
+
+
+
+
+
 }
