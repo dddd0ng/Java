@@ -8,7 +8,7 @@ public class MenuController {
     private final PrintResult printResult;
     //응답 페이지같은 느낌(출력 응답 페이지, 응답 출력용 페이지 느낌으로 만든 클래스)
 
-    public MenuController(){
+    public MenuController() {
         this.menuService = new MenuService();
         this.printResult = new PrintResult();
     }
@@ -23,7 +23,7 @@ public class MenuController {
         //계층별로 데이터를 옮기는 용도.
         //DTO -> 계층을 오가며 데이터를 옮기는 짐꾼 느낌
 
-        if(!menuList.isEmpty()){
+        if (!menuList.isEmpty()) {
             //메뉴가 없어도 null이 아님, 비어있지 않으면 조회가 된거(하나의 메뉴라도 조회 성공)
             printResult.printMenus(menuList);
         }else{//하나의 메뉴도 없는 상태면 조회 실패
@@ -33,13 +33,13 @@ public class MenuController {
     }
 
     public void findMenuByMenuCode(Map<String, String> parameter) {
-        int menuCode = Integer.parseInt(parameter.get("menuCode;"));
+        int menuCode = Integer.parseInt(parameter.get("menuCode"));
         MenuDTO menu = menuService.findMenuByMenuCode(menuCode);
 
-        if(menu != null){
+        if(menu != null) {
             printResult.printMenu(menu);
-        }else{
-            printResult.printErrorMessage(menuCode+"번의 메뉴는 없습니다!");
+        } else {
+            printResult.printErrorMessage(menuCode + "번의 메뉴는 없습니다!");
         }
     }
 }

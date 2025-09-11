@@ -14,7 +14,7 @@ public class MenuService {
     }
 
     public List<MenuDTO> findAllMenus() {
-        SqlSession sqlSession= getSqlSession();
+        SqlSession sqlSession = getSqlSession();
         List<MenuDTO> menuList = menuDAO.selectAllMenus(sqlSession);
         sqlSession.close();
         return menuList;
@@ -24,9 +24,8 @@ public class MenuService {
         SqlSession sqlSession = getSqlSession();
         //위 코드는 절대 메서드 밖에 있으면 안됨, 사용자별 별도의 객체
 //        MenuDTO menu = menuDAO.selectOneMenu(sqlSession,menuCode);
-        MenuDTO menu = menuDAO.selectMenuByMenuCode(sqlSession,menuCode);
+        MenuDTO menu = menuDAO.selectMenuByMenuCode(sqlSession, menuCode);
         sqlSession.close();
-
         return menu;
 
     }

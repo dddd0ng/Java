@@ -3,6 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <typeAliases>
+        <typeAlias type="com.swcamp.section01.xmlconfig.MenuDTO" alias="MenuDTO"/>
+
+    </typeAliases>
+
     <environments default="dev">
         <environment id="dev">
             <transactionManager type="JDBC"/> <!--  JDBC 입력해야 수동 커밋(수동 오토 커밋) -->
@@ -20,5 +25,4 @@
         <!-- xml mapper 해줘야함(등록해줘야 인식함)-->
 <!-- resource에는 xml경로 적어주면됨  -->
     </mappers>
-
 </configuration>

@@ -58,8 +58,6 @@ public class MenuDTO {
         this.orderableStatus = orderableStatus;
     }
 
-
-
     @Override
     public String toString() {
         return "MenuDTO{" +

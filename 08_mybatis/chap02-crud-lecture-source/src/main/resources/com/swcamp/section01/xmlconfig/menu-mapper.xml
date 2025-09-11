@@ -10,7 +10,7 @@
     <resultMap id="menuResultMap" type="com.swcamp.section01.xmlconfig.MenuDTO">
 <!--        type에는 풀 패키지명으로 적어줘야함, 필드값에 매칭시켜주는것(MenuDTO ->[PK] menuCode)-->
         <id property="menuCode" column="MENU_CODE"/>
-<!--        pk컬럼은 id태그를 사용하면 속도 향상의 이점\-->
+        <!--        pk컬럼은 id태그를 사용하면 속도 향상의 이점\-->
 <!--        PK라서 id, 나머진 result-->
         <result property="menuName" column="MENU_NAME"/>
         <result property="menuPrice" column="MENU_PRICE"/>
@@ -20,21 +20,23 @@
     </resultMap>
     <select id="selectAllMenus" resultMap="menuResultMap">
         SELECT
-         MENU_CODE
-        ,MENU_NAME
-        ,MENU_PRICE
-        ,CATEGORY_CODE
-        ,ORDERABLE_STATUS
+        MENU_CODE
+        , MENU_NAME
+        , MENU_PRICE
+        , CATEGORY_CODE
+        , ORDERABLE_STATUS
         FROM TBL_MENU
     </select>
-<select id="selectMenu" resultMap="menuResultMap">
-    SELECT
-         MENU_CODE
-        ,MENU_NAME
-        ,MENU_PRICE
-        ,CATEGORY_CODE
-    ,    ORDERABLE_STATUS
-    FROM TBL_MENU
+
+<!--    사용자의 입력값을 활용(parameterType)한 쿼리(feat.mybatis 홈페이지 '매퍼설정' 참조-->
+    <select id="selectMenu" resultMap="menuResultMap" parameterType="_int">
+        SELECT
+        MENU_CODE
+        , MENU_NAME
+        , MENU_PRICE
+        , CATEGORY_CODE
+        , ORDERABLE_STATUS
+        FROM TBL_MENU
 <!--    WHERE MENU_CODE = ?     -->
     WHERE MENU_CODE = #{menuCode}
 </select>
