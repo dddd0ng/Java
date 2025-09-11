@@ -1,6 +1,7 @@
 package com.swcamp.section01.xmlconfig;
 
 import java.util.List;
+import java.util.Map;
 
 public class MenuController {
     private final MenuService menuService;
@@ -29,5 +30,16 @@ public class MenuController {
             printResult.printErrorMessage("전체 메뉴 조회 실패");
         }//이런게 exception handling 같은 느낌임
 
+    }
+
+    public void findMenuByMenuCode(Map<String, String> parameter) {
+        int menuCode = Integer.parseInt(parameter.get("menuCode;"));
+        MenuDTO menu = menuService.findMenuByMenuCode(menuCode);
+
+        if(menu != null){
+            printResult.printMenu(menu);
+        }else{
+            printResult.printErrorMessage(menuCode+"번의 메뉴는 없습니다!");
+        }
     }
 }

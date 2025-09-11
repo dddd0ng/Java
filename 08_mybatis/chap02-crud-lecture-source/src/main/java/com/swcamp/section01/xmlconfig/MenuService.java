@@ -19,6 +19,17 @@ public class MenuService {
         sqlSession.close();
         return menuList;
     }
+
+    public MenuDTO findMenuByMenuCode(int menuCode) {
+        SqlSession sqlSession = getSqlSession();
+        //위 코드는 절대 메서드 밖에 있으면 안됨, 사용자별 별도의 객체
+//        MenuDTO menu = menuDAO.selectOneMenu(sqlSession,menuCode);
+        MenuDTO menu = menuDAO.selectMenuByMenuCode(sqlSession,menuCode);
+        sqlSession.close();
+
+        return menu;
+
+    }
 }
 
 // 서비스에서 하는거 커넥션객체 생성,소멸

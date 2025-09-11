@@ -18,7 +18,7 @@
     <mappers>
         <mapper resource="com/swcamp/section01/xmlconfig/menu-mapper.xml"/>
         <!-- xml mapper 해줘야함(등록해줘야 인식함)-->
-<!-- resource에는 xml경로 적어주면됨 -->
+<!-- resource에는 xml경로 적어주면됨  -->
     </mappers>
 
 </configuration>

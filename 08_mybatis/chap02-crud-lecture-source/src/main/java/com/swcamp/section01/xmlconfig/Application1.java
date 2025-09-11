@@ -1,5 +1,7 @@
 package com.swcamp.section01.xmlconfig;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Application1 {
@@ -23,6 +25,9 @@ public class Application1 {
             case 1:
                 mc.findAllMenus();
                 break;
+            case 2:
+                mc.findMenuByMenuCode(inputMenuCode());
+                break;
             case 9:
                 System.out.println("프로그램을 종료하겠습니다.");
                 return;
@@ -31,5 +36,17 @@ public class Application1 {
         }
 
         } while(true);
+    }
+
+    /* 설명. Map<String, String> 형태로 web에서 처럼 key,value형태로 넘길 예정*/
+    //request의 parameter개념으로 key,value형태로 넘길 예정
+    private static Map<String, String> inputMenuCode() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("조회 할 메뉴를 입력하세요 : ");
+        String menuCode = sc.nextLine();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("menuCode", menuCode);
+        return parameter;
     }
 }
