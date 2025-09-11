@@ -21,8 +21,12 @@ public class PrintResult {
         String successMessage = "";
         switch(message){
             case "regist": successMessage = " 신규 메뉴 등록에 성공하셨습니다!"; break;
+            case "modify": successMessage = " 메뉴 수정에 성공하셨습니다!"; break;
+            case "remove": successMessage = " 메뉴 삭제에 성공하셨습니다!";
 
         }
         System.out.println("DML 성공 메시지 : " + successMessage);
     }
+
+
 }

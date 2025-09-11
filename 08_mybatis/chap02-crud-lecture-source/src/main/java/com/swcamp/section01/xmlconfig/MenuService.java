@@ -47,6 +47,41 @@ public class MenuService {
 
     return result==1? true:false;
     }
+
+
+    public boolean modifyMenu(MenuDTO menu) {
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.updateMenu(sqlSession,menu);
+
+        //트랜잭션 처리
+        if(result==1){
+            sqlSession.commit();
+        }else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result==1? true:false;
+    }
+
+    public boolean removeMenu(int menuCode) {
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.deleteMenu(sqlSession,menuCode);
+
+        //트랜잭션 처리
+        if(result==1){
+            sqlSession.commit();
+        }else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result==1? true:false;
+    }
 }
 
 // 서비스에서 하는거 커넥션객체 생성,소멸
