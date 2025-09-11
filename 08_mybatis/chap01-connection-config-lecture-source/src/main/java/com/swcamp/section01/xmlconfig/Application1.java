@@ -25,7 +25,7 @@ public class Application1 {
             //false를 넘겨줘야 수동 커밋 가능(두가지 다 만족을 해야) , false를 안던지면 디폴트는true
 
             java.util.Date nowDate = session.selectOne("mapper.selectNow"); // mapper.xml에서 select id값과 같아야함
-            System.out.println("Now date: " + nowDate);
+            System.out.println("Now date(xml방식) : " + nowDate);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
