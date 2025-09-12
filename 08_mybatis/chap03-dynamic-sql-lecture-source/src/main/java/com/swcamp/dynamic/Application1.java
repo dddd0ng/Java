@@ -1,32 +1,79 @@
 package com.swcamp.dynamic;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Application1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         do {
-        System.out.println("====== 마이바티스 동적 SQL ======");
-        System.out.println("1. if 확인하기");
-        System.out.println("2. choose(when, otherwise) 확인하기");
-        System.out.println("3. foreach 확인하기");
-        System.out.println("4. trim(where, set) 확인하기");
-        System.out.println("9. 종료하기");
-        System.out.print("메뉴를 선택하세요: ");
-        int input = sc.nextInt();
-        switch(input) {
-            case 1:
-                ifSubMenu();
-                break;
-            case 9:
-                System.out.println("프로그램을 종료합니다.");
-                return;
-            default:
-                System.out.println("번호를 잘못 입력하셨습니다.");
+            System.out.println("====== 마이바티스 동적 SQL ======");
+            System.out.println("1. if 확인하기");
+            System.out.println("2. choose(when, otherwise) 확인하기");
+            System.out.println("3. foreach 확인하기");
+            System.out.println("4. trim(where, set) 확인하기");
+            System.out.println("9. 종료하기");
+            System.out.print("메뉴를 선택하세요: ");
+            int input = sc.nextInt();
+            switch(input) {
+                case 1:
+                    ifSubMenu();
+                    break;
+                case 2:
+                    chooseSubMenu();
+                    break;
+
+                case 9:
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
+                default:
+                    System.out.println("번호를 잘못 입력하셨습니다.");
+            }
+        } while(true);
+    }
+
+    /* 설명. 중복되지 않는 메뉴 5개의 번호 생성 메소드*/
+    private static List<Integer> generateRandomMenuCodeList() {
+        Set<Integer> set = new HashSet<>();
+        while (set.size() < 5) {
+            set.add((int) (Math.random() * 21) + 1);
         }
-    } while(true);
-}
+    /* 설명. Set -> List*/
+        List<Integer> list = new ArrayList<>(set);
+        //ArrayList의 Collection타입 매개변수 있는 생성자 활용
+//        Collections.sort(list);   <= 오름차순 정렬 필요 시
+        System.out.println("생성된 난수 : "+ list);
+    }
+
+
+    private static void chooseSubMenu() {
+        Scanner sc = new Scanner(System.in);
+        MenuService ms = new MenuService();
+        do {
+            System.out.println("====== choose 서브 메뉴 ======");
+            System.out.println("1. 카테고리 상위 분류별 메뉴 보여주기(식사, 음료, 디저트)");
+            System.out.println("9. 이전 메뉴로");
+            System.out.print("메뉴 번호를 입력해 주세요: ");
+            int input = sc.nextInt();
+            switch(input) {
+                case 1:
+                    ms.searchMenuBySupCategory(inputSupCategory());
+                    break;
+                case 3:
+                    ms.searchMenuByRandomMenuCode(generateRandomMenuCodeList());
+                    break;
+                case 9:
+                    return;
+            }
+        } while(true);
+    }
+
+    private static SearchCriteria inputSupCategory() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("메뉴의 상위 분류를 입력해 주세요(식사, 음료, 디저트): ");
+        String value = sc.nextLine();
+
+        return new SearchCriteria("category", value);
+    }
 
     private static void ifSubMenu() {
         Scanner sc = new Scanner(System.in);
