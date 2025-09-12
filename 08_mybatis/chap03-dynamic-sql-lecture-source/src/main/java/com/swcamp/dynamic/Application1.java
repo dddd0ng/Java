@@ -58,6 +58,20 @@ public class Application1 {
     }
 
     private static SearchCriteria inputAllOrOne() {
+        Scanner sc= new Scanner(System.in);
+        System.out.print("검색 조건을 입력하시겠습니까?(예 or 아니오)");
+
+        boolean hasSearchValue = "예".equals(sc.nextLine())? true : false;
+
+        SearchCriteria searchCriteria = new SearchCriteria();
+        if(hasSearchValue){
+            System.out.println("검색할 메뉴 코드를 입력하세요 : ");
+            String menuCode = sc.nextLine();
+            searchCriteria.setCondition("menuCode");
+            searchCriteria.setValue(menuCode);
+        }
+
+
         return null;
     }
 

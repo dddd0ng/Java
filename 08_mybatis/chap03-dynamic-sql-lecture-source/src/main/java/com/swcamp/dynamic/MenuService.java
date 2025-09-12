@@ -56,5 +56,14 @@ public class MenuService {
     }
 
     public void searchMenuByCodeOrSearchAll(SearchCriteria searchCriteria) {
+        SqlSession sqlSession = getSqlSession();
+        MenuMapper mapper =
+                sqlSession.getMapper(MenuMapper.class);
+
+        /* 설명. List형태로 기본적으로는 넘기지 않지만 foreach를 활용하는 동적쿼리는 list 활용 가능(feat. key값 불필요) */
+        List<MenuDTO> menus = mapper.searchMenuByCodeOrSearchAll(searchCriteria);
+        menus.forEach(System.out::println);
+
+        sqlSession.close();
     }
 }
