@@ -21,7 +21,12 @@ public class Application1 {
                 case 2:
                     chooseSubMenu();
                     break;
-
+                case 3:
+                    foreachSubMenu();
+                    break;
+                case 4:
+                    trimSubMenu();
+                    break;
                 case 9:
                     System.out.println("프로그램을 종료합니다.");
                     return;
@@ -30,18 +35,65 @@ public class Application1 {
             }
         } while(true);
     }
+    private static void trimSubMenu() {
+        Scanner sc = new Scanner(System.in);
+        MenuService ms = new MenuService();
+        do {
+            System.out.println("====== trim 서브 메뉴 ======");
+            System.out.println("1. 검색 조건이 있는 경우 메뉴 코드로 조회. 단, 없으면 전체 조회");
+            System.out.println("2. 메뉴 혹은 카테고리로 검색. 단, 메뉴와 카테고리가 둘 다 일치하는 경우도 검색하며,"
+                                    +"검색 조건이 없는 경우 전체 조회");
+            System.out.println("3. 원하는 메뉴 정보만 수정하기");
+            System.out.println("9. 이전 메뉴로");
+            System.out.print("메뉴 번호를 입력해 주세요: ");
+            int input = sc.nextInt();
+            switch(input) {
+                case 1:
+                    ms.searchMenuByCodeOrSearchAll(inputAllOrOne());
+                    break;
+                case 9:
+                    return;
+            }
+        } while(true);
+    }
 
-    /* 설명. 중복되지 않는 메뉴 5개의 번호 생성 메소드*/
+    private static SearchCriteria inputAllOrOne() {
+        return null;
+    }
+
+
+    private static void foreachSubMenu() {
+        Scanner sc = new Scanner(System.in);
+        MenuService ms = new MenuService();
+        do {
+            System.out.println("====== foreach 서브 메뉴 ======");
+            System.out.println("1. 랜덤한 메뉴 5개 추출해서 조회하기");
+            System.out.println("9. 이전 메뉴로");
+            System.out.print("메뉴 번호를 입력해 주세요: ");
+            int input = sc.nextInt();
+            switch(input) {
+                case 1:
+                    ms.searchMenuByRandomMenuCode(generateRandomMenuCodeList());
+                    break;
+                case 9:
+                    return;
+            }
+        } while(true);
+    }
+
+    /* 설명. 중복되지 않는 메뉴 5개의 번호 생성 메소드 */
     private static List<Integer> generateRandomMenuCodeList() {
         Set<Integer> set = new HashSet<>();
-        while (set.size() < 5) {
-            set.add((int) (Math.random() * 21) + 1);
+        while(set.size() < 5) {
+            set.add((int)(Math.random() * 21) + 1);
         }
-    /* 설명. Set -> List*/
-        List<Integer> list = new ArrayList<>(set);
-        //ArrayList의 Collection타입 매개변수 있는 생성자 활용
-//        Collections.sort(list);   <= 오름차순 정렬 필요 시
-        System.out.println("생성된 난수 : "+ list);
+
+        /* 설명. Set -> List */
+        List<Integer> list = new ArrayList<>(set);  // ArrayList의 Collection타입 매개변수 있는 생성자 활용
+//        Collections.sort(list);                   // 오름차순 정렬 필요 시
+        System.out.println("생성된 난수: " + list);
+
+        return list;
     }
 
 
@@ -57,9 +109,6 @@ public class Application1 {
             switch(input) {
                 case 1:
                     ms.searchMenuBySupCategory(inputSupCategory());
-                    break;
-                case 3:
-                    ms.searchMenuByRandomMenuCode(generateRandomMenuCodeList());
                     break;
                 case 9:
                     return;
@@ -115,4 +164,6 @@ public class Application1 {
         System.out.print("검색 할 가격대의 최대 금액을 입력해 주세요: ");  // 0, 1만, 2만, 3만 구간에서 입력한 가격까지
         return sc.nextInt();
     }
+
+
 }
