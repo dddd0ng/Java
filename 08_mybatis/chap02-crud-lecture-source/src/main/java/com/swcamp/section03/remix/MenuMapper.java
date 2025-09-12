@@ -1,5 +1,7 @@
 package com.swcamp.section03.remix;
 
+import java.util.List;
+
 /* 설명.
  *  xml방식(쿼리는 xml)과 java방식(dao가 인터페이스이자 간단한 추상메소드로 구성)의 장점을 혼용하기 위한 방법
  *  1. xml 파일은 mapper용 인터페이스와 같은 이름으로 작성 되어야 한다.

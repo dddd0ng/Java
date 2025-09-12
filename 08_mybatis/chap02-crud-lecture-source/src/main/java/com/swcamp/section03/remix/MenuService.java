@@ -1,5 +1,11 @@
 package com.swcamp.section03.remix;
 
+import org.apache.ibatis.session.SqlSession;
+
+import java.util.List;
+
+import static com.swcamp.section03.remix.Template.getSqlSession;
+
 public class MenuService {
     private MenuMapper menuMapper;
 

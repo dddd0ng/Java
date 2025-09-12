@@ -1,5 +1,8 @@
 package com.swcamp.section03.remix;
 
+import java.util.List;
+import java.util.Map;
+
 public class MenuController {
     private final MenuService menuService;
     private final PrintResult printResult;      // 응답 출력용 페이지의 느낌으로 만든 클래스

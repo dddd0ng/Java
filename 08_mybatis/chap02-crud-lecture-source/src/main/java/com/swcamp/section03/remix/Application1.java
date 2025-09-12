@@ -1,5 +1,7 @@
 package com.swcamp.section03.remix;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Application1 {
