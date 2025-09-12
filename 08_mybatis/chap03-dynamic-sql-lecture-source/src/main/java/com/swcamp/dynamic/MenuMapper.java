@@ -1,6 +1,7 @@
 package com.swcamp.dynamic;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MenuMapper {
     List<MenuDTO> selectMenuByPrice(int maxPrice);
@@ -13,4 +14,6 @@ public interface MenuMapper {
     List<MenuDTO> searchMenuByRandomMenuCode(List<Integer> integers);
 
     List<MenuDTO> searchMenuByCodeOrSearchAll(SearchCriteria searchCriteria);
+
+    List<MenuDTO> searchMenuByNameOrCategory(Map<String, Object> criteria);
 }

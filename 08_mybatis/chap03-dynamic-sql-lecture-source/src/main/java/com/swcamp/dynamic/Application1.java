@@ -35,6 +35,7 @@ public class Application1 {
             }
         } while(true);
     }
+
     private static void trimSubMenu() {
         Scanner sc = new Scanner(System.in);
         MenuService ms = new MenuService();
@@ -42,7 +43,7 @@ public class Application1 {
             System.out.println("====== trim 서브 메뉴 ======");
             System.out.println("1. 검색 조건이 있는 경우 메뉴 코드로 조회. 단, 없으면 전체 조회");
             System.out.println("2. 메뉴 혹은 카테고리로 검색. 단, 메뉴와 카테고리가 둘 다 일치하는 경우도 검색하며,"
-                                    +"검색 조건이 없는 경우 전체 조회");
+                    + "검색 조건이 없는 경우 전체 조회");
             System.out.println("3. 원하는 메뉴 정보만 수정하기");
             System.out.println("9. 이전 메뉴로");
             System.out.print("메뉴 번호를 입력해 주세요: ");
@@ -51,30 +52,62 @@ public class Application1 {
                 case 1:
                     ms.searchMenuByCodeOrSearchAll(inputAllOrOne());
                     break;
+                case 2:
+                    ms.searchMenuByNameOrCategory(inputSearchCriteriaMap());
+                    break;
                 case 9:
                     return;
             }
         } while(true);
     }
 
+    private static Map<String, Object> inputSearchCriteriaMap() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("검색 조건을 입력하세요(category or name or both or none): ");
+        String condition = sc.nextLine();
+
+        Map<String, Object> criteria = new HashMap<>();
+        if("category".equals(condition)) {
+            System.out.print("검색 할 카테고리 코드를 입력하세요: ");
+            int categoryCode = sc.nextInt();
+
+            criteria.put("categoryCode", categoryCode);
+        } else if ("name".equals(condition)) {
+            System.out.print("검색 할 메뉴 이름을 입력하세요: ");
+            String nameValue = sc.nextLine();
+
+            criteria.put("name", nameValue);
+        } else if ("both".equals(condition)) {
+            System.out.print("검색 할 카테고리 코드를 입력하세요: ");
+            int categoryCode = sc.nextInt();
+            sc.nextLine();
+            System.out.print("검색 할 메뉴 이름을 입력하세요: ");
+            String nameValue = sc.nextLine();
+
+            criteria.put("categoryCode", categoryCode);
+            criteria.put("name", nameValue);
+        }
+
+        return criteria;
+    }
+
     private static SearchCriteria inputAllOrOne() {
-        Scanner sc= new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.print("검색 조건을 입력하시겠습니까?(예 or 아니오)");
 
-        boolean hasSearchValue = "예".equals(sc.nextLine())? true : false;
+        boolean hasSearchValue = "예".equals(sc.nextLine())? true: false;
 
         SearchCriteria searchCriteria = new SearchCriteria();
-        if(hasSearchValue){
-            System.out.println("검색할 메뉴 코드를 입력하세요 : ");
+        if(hasSearchValue) {
+            System.out.print("검색할 메뉴 코드를 입력하세요: ");
             String menuCode = sc.nextLine();
             searchCriteria.setCondition("menuCode");
             searchCriteria.setValue(menuCode);
         }
 
-
-        return null;
+        return searchCriteria;
     }
-
 
     private static void foreachSubMenu() {
         Scanner sc = new Scanner(System.in);
@@ -178,6 +211,4 @@ public class Application1 {
         System.out.print("검색 할 가격대의 최대 금액을 입력해 주세요: ");  // 0, 1만, 2만, 3만 구간에서 입력한 가격까지
         return sc.nextInt();
     }
-
-
 }
