@@ -1,5 +1,7 @@
 package com.swcamp.section02.javaconfig;
 
+import java.util.List;
+
 public class PrintResult {
     /* 설명. 전체 메뉴 조회 성공 페이지 느낌 */
     public void printMenus(List<MenuDTO> menuList) {

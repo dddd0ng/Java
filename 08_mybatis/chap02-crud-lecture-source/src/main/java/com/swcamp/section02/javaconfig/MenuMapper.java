@@ -1,6 +1,9 @@
 package com.swcamp.section02.javaconfig;
 
-public class MenuMapper {
+import org.apache.ibatis.annotations.*;
+import java.util.List;
+
+public interface MenuMapper {
     @Results(id="menuResultMap", value = {
             @Result(id=true, property="menuCode", column="MENU_CODE"),
             @Result(property="menuName", column="MENU_NAME"),
