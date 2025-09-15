@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--얘는 순서 상관없고 마이바티스 설정용xml이 순서 상관해서 중요-->
 <mapper namespace="com.swcamp.xmlmapper.ElementMapper">
     <resultMap id="menuResultMap" type="com.swcamp.xmlmapper.MenuDTO">
         <id property="menuCode" column="MENU_CODE"/>
@@ -23,6 +23,33 @@
                ,A.ORDERABLE_STATUS
             FROM TBL_MENU A
             WHERE ORDERABLE_STATUS = 'Y'
+    </select>
 
+<!-- //[join을 위한]
+1. Association관계에서 resultMap 2개 활용 -->
+    <resultMap id="menuAndCategoryResultMap" type="com.swcamp.xmlmapper.MenuAndCategoryDTO">
+
+
+    </resultMap>
+
+    <resultMap id="categoryResultMap" type="com.swcamp.xmlmapper.CategoryDTO">
+        <id property="categoryCode" column="CATEGORY_CODE"/>
+            <result property="categoryName" column="CATEGORY_NAME"/>
+            <result property="refCategoryCode" column="REF=CATEGORY_CODE"/>
+    </resultMap>
+
+    <select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">
+<!--        이 결과를 어케 매핑할건지가 중요함!-->
+        SELECT
+        A.MENU_CODE
+        , A.MENU_NAME
+        , A.MENU_PRICE
+        , A.CATEGORY_CODE
+        , B.CATEGORY_NAME
+        , B.REF_CATEGORY_CODE
+        , A.ORDERABLE_STATUS
+        FROM TBL_MENU A
+        JOIN TBL_CATEGORY B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+        WHERE A.ORDERABLE_STATUS = 'Y'
     </select>
 </mapper>

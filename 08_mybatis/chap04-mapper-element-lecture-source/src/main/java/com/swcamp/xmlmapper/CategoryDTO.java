@@ -7,7 +7,7 @@ public class CategoryDTO {
     //이렇게 쓰면 안됨, int쓰면안되는이유 -> null이 들어갈수있고 없고!
     //Null값이 들어올 수 있는 필드 Wrapper class 활용 (널 값도 받기 위해)
     private Integer refCategoryCode;
-
+//DTO에setter는 지금 상관없지만..~~
     public CategoryDTO() {
     }
 
