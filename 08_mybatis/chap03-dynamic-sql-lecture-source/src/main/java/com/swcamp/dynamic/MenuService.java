@@ -79,4 +79,26 @@ public class MenuService {
 
         sqlSession.close();
     }
+
+    public void modifyMenu(Map<String, Object> critMap) {
+        SqlSession sqlSession = getSqlSession();
+        //마이바티스에서 db랑 상호작용하기위해 sql세션객체 가져옴(이 세션 있어야 sql실행 가능)
+        MenuMapper mapper = sqlSession.getMapper(MenuMapper.class);
+        //매퍼객체 가져오기(menuMapper인터페이스 구현체를 mybatis가 자동으로 만들어줌)
+        //mapper.updateMenu(critMap)호출하면 매퍼xml에 정의된 sql(update)문이 실행됨
+
+        int result = mapper.updateMenu(critMap);
+        //실행 -> db에 update sql문 실행
+
+        //결과처리(트랜잭션 제어)
+        if(result == 1){ //커밋해서 db에 반영
+            System.out.println("메뉴 정보 변경에 성공하였습니다.");
+            sqlSession.commit();
+        }else{ //롤백해서 변경사항 취소
+            System.out.println("메뉴 정보 변경에 실패하였습니다.");
+            sqlSession.rollback();
+        }//메시지 출력으로 로그도 남기깅
+
+        sqlSession.close(); //세션 종료(사용끝났으니까 세션닫기, db연결 반환)
+    }
 }

@@ -15,5 +15,7 @@ public interface MenuMapper {
 
     List<MenuDTO> searchMenuByCodeOrSearchAll(SearchCriteria searchCriteria);
 
-    List<MenuDTO> searchMenuByNameOrCategory(Map<String, Object> criteria);
+    List<MenuDTO> searchMenuByNameOrCategory(java.util.Map<java.lang.String,java.lang.Object> criteria);
+
+    int updateMenu(java.util.Map<java.lang.String,java.lang.Object> critMap);
 }
