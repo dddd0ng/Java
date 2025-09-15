@@ -1,0 +1,7 @@
+package com.swcamp.xmlmapper;
+
+import java.util.List;
+
+public interface ElementMapper {
+    List<MenuDTO> selectResultMapTest();
+}

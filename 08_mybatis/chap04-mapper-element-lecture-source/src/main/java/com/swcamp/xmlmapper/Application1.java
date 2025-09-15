@@ -16,7 +16,9 @@ public class Application1 {
             int num = sc.nextInt();
             sc.nextLine();
             switch(num){
-                case 1: break;
+                case 1:
+                    es.selectResultMapTest();
+                    break;
                 case 2: break;
                 case 3: break;
             }
