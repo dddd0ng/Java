@@ -12,7 +12,7 @@ public class Template {
     private static String driver = "com.mysql.cj.jdbc.Driver";
     private static String url = "jdbc:mysql://localhost:3306/menudb";
     private static String user = "swcamp";
-    private static String password = "swcamp";
+    private static String password = "1221";
 
     private static SqlSessionFactory sqlSessionFactory;
 

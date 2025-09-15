@@ -136,13 +136,23 @@
         , A.CATEGORY_CODE
         , A.ORDERABLE_STATUS
         FROM TBL_MENU A
-        <where>
+<!--        <where>-->
+<!--            <if test="name != null">-->
+<!--                A.MENU_NAME LIKE CONCAT('%', #{name}, '%')-->
+<!--            </if>-->
+<!--            <if test="categoryCode != null">-->
+<!--                AND A.CATEGORY_CODE = #{categoryCode}-->
+<!--            </if>-->
+<!--        </where>-->
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="name != null">
                 A.MENU_NAME LIKE CONCAT('%', #{name}, '%')
             </if>
             <if test="categoryCode != null">
                 AND A.CATEGORY_CODE = #{categoryCode}
             </if>
-        </where>
+        </trim>
+
     </select>
 </mapper>
