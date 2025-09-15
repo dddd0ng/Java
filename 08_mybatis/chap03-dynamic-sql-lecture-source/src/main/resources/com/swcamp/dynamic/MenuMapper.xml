@@ -153,6 +153,43 @@
                 AND A.CATEGORY_CODE = #{categoryCode}
             </if>
         </trim>
-
+<!--trim => SQL감싸면서 앞뒤 불필요한 구문(and,or 등)자동으로 다듬어주는 태그
+동적쿼리 작성할때 조건이 있을수도, 없을수도 있을 때 문법 오류를 방지하려 씀
+prefix=where -> 조건이 하나라도 있으면 맨 앞에 where
+(조건이 생기면, 조건이 있을때만 where붙여줌)
+prefixOverrides -> 블록 안 제일 앞부분에 특정 키워드가 있으면 제거해주는 역할
+(앞에 잘못 붙은 and, or 지워줌)
+and, or같은게 맨 앞에 있으면 문법 에러가 나니림 자동으로 지워줌
+-->
     </select>
+        <update id="updateMenu" parameterType="hashmap">
+        UPDATE
+              TBL_MENU
+<!--            <set>-->
+<!--                <if test="menuName != null and menuName != ''">-->
+<!--                    MENU_NAME = #{menuName}-->
+<!--                </if>-->
+
+<!--                <if test="orderableStatus != null and orderableStatus != ''">-->
+<!--                    , ORDERABLE_STATUS = #{orderableStatus}-->
+<!--                </if>-->
+<!--            </set>-->
+<!--            WHERE MENU_CODE = #{menuCode}-->
+
+            <trim prefix="SET" prefixOverrides=",">
+                <set>
+                    <if test="menuName != null and menuName != ''">
+                        MENU_NAME = #{menuName}
+                    </if>
+
+                    <if test="orderableStatus != null and orderableStatus != ''">
+                        , ORDERABLE_STATUS = #{orderableStatus}
+                    </if>
+                </set>
+                WHERE MENU_CODE = #{menuCode}
+            </trim>
+
+        </update>
+
+
 </mapper>
