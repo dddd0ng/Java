@@ -4,6 +4,7 @@ import com.swcamp.mybatisspring.section01.factorybean.MenuMapper;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,7 +57,10 @@ public class MybatisConfiguration {
         factoryBean.setConfiguration(configuration); // mapper 추가 개념
 
         return factoryBean.getObject();
+    }
 
-
+    @Bean
+    public SqlSessionTemplate sqlSessionTemplate() throws Exception {
+        return new SqlSessionTemplate(sqlSessionFactory());
     }
 }
