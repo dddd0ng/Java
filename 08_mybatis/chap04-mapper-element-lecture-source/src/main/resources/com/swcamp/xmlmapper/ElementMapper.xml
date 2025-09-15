@@ -27,36 +27,104 @@
     </select>
 
 <!-- //[join을 위한]
-1. Association관계에서 resultMap 2개 활용 -->
+1. Association관계에서 resultMap 2개를 활용 -->
+<!--    <resultMap id="menuAndCategoryResultMap"-->
+<!--               type="com.swcamp.xmlmapper.MenuAndCategoryDTO">-->
+<!--    <id property="menuCode" column="MENU_CODE"/>-->
+<!--        <result property="menuName" column="MENU_NAME"/>-->
+<!--        <result property="menuPrice" column="MENU_PRICE"/>-->
+<!--&lt;!&ndash;        <result property="categoryCode" column="CATEGORY_CODE"/>&ndash;&gt;-->
+<!--        <result property="orderableStatus" column="ORDERABLE_STATUS"/>-->
+<!--        <association property="category" resultMap="categoryResultMap"/>-->
+<!--    </resultMap>-->
+
+<!--    <resultMap id="categoryResultMap"-->
+<!--               type="com.swcamp.xmlmapper.CategoryDTO">-->
+<!--        <id property="categoryCode" column="CATEGORY_CODE"/>-->
+<!--            <result property="categoryName" column="CATEGORY_NAME"/>-->
+<!--            <result property="refCategoryCode" column="REF=CATEGORY_CODE"/>-->
+<!--    </resultMap>-->
+
+<!--    Association관계에서 resultMap 1개만 활용-->
     <resultMap id="menuAndCategoryResultMap"
                type="com.swcamp.xmlmapper.MenuAndCategoryDTO">
-    <id property="menuCode" column="MENU_CODE"/>
+        <id property="menuCode" column="MENU_CODE"/>
         <result property="menuName" column="MENU_NAME"/>
         <result property="menuPrice" column="MENU_PRICE"/>
-<!--        <result property="categoryCode" column="CATEGORY_CODE"/>-->
+        <!--        <result property="categoryCode" column="CATEGORY_CODE"/>-->
         <result property="orderableStatus" column="ORDERABLE_STATUS"/>
-        <association property="category" resultMap="categoryResultMap"/>
-    </resultMap>
-
-    <resultMap id="categoryResultMap"
-               type="com.swcamp.xmlmapper.CategoryDTO">
-        <id property="categoryCode" column="CATEGORY_CODE"/>
+<!--        resultMap 활용할시엔 javaType이 들어가고, id~result값넣음-->
+        <association property="category" javaType="com.swcamp.xmlmapper.CategoryDTO">
+            <id property="categoryCode" column="CATEGORY_CODE"/>
             <result property="categoryName" column="CATEGORY_NAME"/>
             <result property="refCategoryCode" column="REF=CATEGORY_CODE"/>
+        </association>
     </resultMap>
 
-    <select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">
-<!--        이 결과를 어케 매핑할건지가 중요함!-->
+
+
+
+<!--    <select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">-->
+<!--&lt;!&ndash;        이 결과를 어케 매핑할건지가 중요함!&ndash;&gt;-->
+<!--        SELECT-->
+<!--        A.MENU_CODE-->
+<!--        , A.MENU_NAME-->
+<!--        , A.MENU_PRICE-->
+<!--        , A.CATEGORY_CODE-->
+<!--        , B.CATEGORY_NAME-->
+<!--        , B.REF_CATEGORY_CODE-->
+<!--        , A.ORDERABLE_STATUS-->
+<!--        FROM TBL_MENU A-->
+<!--        JOIN TBL_CATEGORY B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)-->
+<!--        WHERE A.ORDERABLE_STATUS = 'Y'-->
+<!--    </select>-->
+<select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">
+    SELECT
+    A.CATEGORY_CODE
+    , A.CATEGORY_NAME
+    , A.REF_CATEGORY_CODE
+    , B.MENU_CODE
+    , B.MENU_NAME
+    , B.MENU_PRICE
+    , B.CATEGORY_CODE
+    , B.ORDERABLE_STATUS
+    FROM TBL_CATEGORY A
+    JOIN TBL_MENU B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+    WHERE B.ORDERABLE_STATUS = 'Y'
+</select>
+
+
+<!--    3. Collection 관계에서 resultMap 2개 활용-->
+<!--    resultMap 1개 활용할때엔 collection쪽 태그에서 ofType사용-->
+    <resultMap id="categoryAndMenuResultMap"
+               type="com.swcamp.xmlmapper.CategoryAndMenuDTO">
+        <id property="categoryCode" column="CACO"/> <!--같은 컬럼은 에러는 나지 않지만 가급적 별칭 활용하기-->
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="refCategoryCode" column="refCategoryCode"/>
+        <collection property="menus" resultMap="menuResultMap"/>
+    </resultMap>
+
+    <resultMap id="menuResultMap3" type="com.swcamp.xmlmapper.MenuDTO">
+        <id property="menuCode" column="MENU_CODE"/>
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="menuPrice" column="MENU_PRICE"/>
+        <result property="categoryCode" column="CACO"/>
+        <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+    </resultMap>
+
+    <select id="selectResultMapCollectionTest" resultMap="categoryAndMenuResultMap">
         SELECT
-        A.MENU_CODE
-        , A.MENU_NAME
-        , A.MENU_PRICE
-        , A.CATEGORY_CODE
-        , B.CATEGORY_NAME
-        , B.REF_CATEGORY_CODE
-        , A.ORDERABLE_STATUS
-        FROM TBL_MENU A
-        JOIN TBL_CATEGORY B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
-        WHERE A.ORDERABLE_STATUS = 'Y'
+            A.CATEGORY_CODE
+            , A.CATEGORY_NAME
+            , A.REF_CATEGORY_CODE
+            , B.MENU_CODE
+            , B.MENU_NAME
+            , B.MENU_PRICE
+            , B.CATEGORY_CODE
+            , B.ORDERABLE_STATUS
+
+        FROM TBL_CATEGORY A
+        JOIN TBL_MENU B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+        WHERE B.ORDERABLE_STATUS = 'Y'
     </select>
 </mapper>
