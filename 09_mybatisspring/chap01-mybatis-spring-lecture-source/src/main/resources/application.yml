@@ -24,4 +24,4 @@ logging:
       swcamp:
         mybatisspring:
           section01:
-            factorybean: 
+            factorybean:
