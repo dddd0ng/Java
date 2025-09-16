@@ -9,6 +9,5 @@ spring:
 #    jdbc-url: jdbc:log4jdbc:mariadb://localhost:3306/menudb
     # DB? url? url ?? ? ?? ???? ?? ???
     url: jdbc:log4jdbc:mariadb://localhost:3306/menudb
-
     username: root
     password: 1221

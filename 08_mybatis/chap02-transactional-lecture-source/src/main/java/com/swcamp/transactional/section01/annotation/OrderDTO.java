@@ -1,10 +1,17 @@
 package com.swcamp.transactional.section01.annotation;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
 /* 설명. 주문한 시각 및 사용자의 주문건을 포함한 DTO
 * (controller-service-dao 사이에사 쓸 수 있게 만든)*/
 public class OrderDTO {

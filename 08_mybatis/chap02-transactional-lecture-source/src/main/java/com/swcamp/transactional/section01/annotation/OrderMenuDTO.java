@@ -1,4 +1,12 @@
 package com.swcamp.transactional.section01.annotation;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 /* 설명. 하나의 메뉴에 대한 주문건을 담는 DTO*/
 public class OrderMenuDTO {
     private int menuCode; //사용자가 주문하는 메뉴 번호
