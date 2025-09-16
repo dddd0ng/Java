@@ -39,11 +39,34 @@ public class OrderService {
         menus.forEach(System.out::println);
 
         /* 설명. 3. 이 주문건에 대한 총 합계를 계산 */
+        int totalOrderPrice = calcTotalPrice(orderInfo.getOrderMenus(), menus);
 
         /* 설명. 4. 1부터 3까지 해서 tbl_order 테이블에 추가(insert) */
+        /* 설명. 4-1. OrderDTO -> Order */
+        Order order = new Order(orderInfo.getOrderDate(), orderInfo.getOrderTime(), totalOrderPrice);
+
+        /* 설명. 4-2. Order로 tbl_order 테이블에 insert */
+        orderMapper.insertOrder(order);     // select key를 활용해서 insert 이후 select을 통해 한번의 DB와의 I/O를 발생시킴
+        System.out.println("주문 성공 후 방금 주문한 번호가 Order 엔티티에 들어있는지 확인: " + order.getOrderCode());
+
 
         /* 설명. 5. tbl_order_menu 테이블에도 주문한 메뉴 갯수만큼 메뉴를 추가(insert) */
 
 
     }
+
+    /* 설명. 사용자가 주문한 각 메뉴와 수량에 따른 총 주문금액 계산용 메소드 */
+    private int calcTotalPrice(List<OrderMenuDTO> orderMenus, List<Menu> menus) {
+        int totalPrice = 0;
+
+        int orderMenuSize = orderMenus.size();            // 사용자가 주문한 메뉴의 종류
+        for (int i = 0; i < orderMenuSize; i++) {         // 사용자가 주문한 메뉴의 종류만큼 반복
+            OrderMenuDTO orderMenu = orderMenus.get(i);   // 메뉴 수량 추출을 위해
+            Menu menu = menus.get(i);                     // 메뉴 단가 추출을 위해
+            totalPrice += orderMenu.getOrderAmount() * menu.getMenuPrice();
+        }
+
+        return totalPrice;
+    }
+
 }

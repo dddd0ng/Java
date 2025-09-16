@@ -18,6 +18,11 @@
             , #{orderTime}
             , #{totalOrderPrice}
             )
+<!--        pk=resultType 이번 프로젝트는 어지간해서 pk id 값 auto돌리기-->
+        <selectKey keyProperty="orderCode" order="AFTER" resultType="_int">
+            SELECT MAx(ORDER_CODE) FROM TBL_ORDER
+
+        </selectKey>
     </insert>
 
 </mapper>
