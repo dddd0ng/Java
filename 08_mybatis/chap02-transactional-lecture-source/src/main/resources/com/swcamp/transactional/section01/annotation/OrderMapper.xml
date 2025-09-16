@@ -20,9 +20,26 @@
             )
 <!--        pk=resultType 이번 프로젝트는 어지간해서 pk id 값 auto돌리기-->
         <selectKey keyProperty="orderCode" order="AFTER" resultType="_int">
-            SELECT MAx(ORDER_CODE) FROM TBL_ORDER
-
+<!--            SELECT MAX(ORDER_CODE) FROM TBL_ORDER-->
+            SELECT LAST_INSERT_ID()
         </selectKey>
+    </insert>
+<!--result type 필요없음 <= insert-->
+    <insert id="insertOrderMenu"
+            parameterType="com.swcamp.transactional.section01.annotation.OrderMenu">
+        INSERT
+        INTO TBL_ORDER_MENU
+        (
+        ORDER_CODE
+        , MENU_CODE
+        , ORDER_AMOUNT
+        )
+        VALUES
+        (
+        #{orderCode}
+        , #{menuCode}
+        , #{orderAmount}
+        )
     </insert>
 
 </mapper>
