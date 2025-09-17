@@ -95,11 +95,31 @@ public class EntityManagerCRUDTest {
 
         try {
             menu.setMenuName(menuNameToChange);//갈치스무디로 변경 후 커밋
-            
+
             transaction.commit();
             //영속상태의 값을 바꾸는게 업데이트
         } catch (Exception e) {
             transaction.rollback();
         }
     }
+
+    @Test
+    public void 메뉴_삭제하기_테스트(){
+        //이것도 역시나 영속상태여야함
+        Menu menuToRemove = entityManager.find(Menu.class, 24);
+        //24번 메뉴가 이번엔 영속상태로
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        try {
+            entityManager.remove(menuToRemove);
+            transaction.commit();
+            //영속상태의 값을 바꾸는게 업데이트
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+
+
+    }
 }
+
