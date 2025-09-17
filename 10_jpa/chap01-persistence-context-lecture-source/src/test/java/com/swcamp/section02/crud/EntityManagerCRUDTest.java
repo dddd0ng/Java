@@ -16,19 +16,21 @@ public class EntityManagerCRUDTest {
     public static void initFactory() {
         entityManagerFactory = Persistence.createEntityManagerFactory("jpatest");
     }
+
     @BeforeEach
-    public void initManager(){
+    public void initManager() {
         entityManager = entityManagerFactory.createEntityManager();
 
     }
+
     //method 반납해줘야함
     @AfterEach
-    public void closeManager(){
+    public void closeManager() {
         entityManager.close();
     }
 
     @AfterAll
-    public static void closeFactory(){
+    public static void closeFactory() {
         entityManagerFactory.close();
     }
 
@@ -55,7 +57,7 @@ public class EntityManagerCRUDTest {
     }
 
     @Test
-    public void 새로운_메뉴_추가_테스트(){
+    public void 새로운_메뉴_추가_테스트() {
         Menu menu = new Menu();
         menu.setMenuName("꿀발린추어탕");
         menu.setMenuPrice(7000);
@@ -65,11 +67,39 @@ public class EntityManagerCRUDTest {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         //commit,rollback 전 까지 transaction
-        entityManager.persist(menu); //영속 상태로 바꿈
-        //엔터티 매니저한테 맡기고, 맡기기 전에 트랜잭션 해야함
-        transaction.commit();
-        //커밋 시 내부적으로 flash()
-        //인서트문이 날라가서 db에 추가됨, 알아서 db에서 auto_increment
+
+        try {
+            entityManager.persist(menu); //영속 상태로 바꿈
+            //엔터티 매니저한테 맡기고, 맡기기 전에 트랜잭션 해야함
+            transaction.commit();
+            //커밋 시 내부적으로 flash()
+            //인서트문이 날라가서 db에 추가됨, 알아서 db에서 auto_increment
+        } catch (Exception e) {
+            transaction.rollback();
+        }
     }
 
+    @Test
+    public void 메뉴_이름_수정_테스트() {
+        /* 설명. 23번 메뉴 엔터티를 영속 상태로 만들어 받은 다음(관리해달라고 한 다음)*/
+        Menu menu = entityManager.find(Menu.class, 23);
+//                수정할 대상을 영속 상태로 가져와야함, entityManager23 아무것도없으니
+//                find -> select문이 날라감 반환받으면 해당 메뉴엔티티는 영속 상태
+        System.out.println("수정 전 menu : " + menu);
+
+        String menuNameToChange = "갈치스무디";
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        //commit,rollback 전 까지 transaction
+
+        try {
+            menu.setMenuName(menuNameToChange);//갈치스무디로 변경 후 커밋
+            
+            transaction.commit();
+            //영속상태의 값을 바꾸는게 업데이트
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+    }
 }
