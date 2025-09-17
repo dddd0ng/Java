@@ -6,6 +6,7 @@
 
         <!--클래스 등록해주깅-->
         <class>com.swcamp.section02.crud.Menu</class>
+        <class>com.swcamp.section03.persistencecontext.Menu</class>
 
 
 
