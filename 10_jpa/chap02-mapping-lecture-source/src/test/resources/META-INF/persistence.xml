@@ -7,6 +7,7 @@
         <!--클래스 등록해주깅-->
 <!--<class>member라는 클래스 넣어주면됨</class>-->
         <class>com.swcamp.section01.entity.Member</class>
+        <class>com.swcamp.section02.column.Member</class>
 
         <properties>
 

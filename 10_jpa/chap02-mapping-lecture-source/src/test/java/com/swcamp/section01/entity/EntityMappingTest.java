@@ -13,7 +13,7 @@ public class EntityMappingTest {
     @BeforeAll
     public static void initFactory() {
         entityManagerFactory = Persistence.createEntityManagerFactory("jpatest");
-    } //전체 테스트 시작 전에 팩토리 생성
+    } //전체 테스트 시작 전에 팩토리 생성 , xml파일 <persistence-unit name="jpatest">이거랑 name 맞춰야함
 
     @BeforeEach
     public void initManager() {
