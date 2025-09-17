@@ -3,6 +3,14 @@
 <!--엔터티 매니저 팩토리 식별하기 위한 이름 설정-->
     <persistence-unit name="jpatest">
         <!--엔터티는 설정에 따로 추가 할 예정-->
+
+        <!--클래스 등록해주깅-->
+        <class>com.swcamp.section02.crud.Menu</class>
+
+
+
+
+
         <properties>
 
             <!--데이터베이스 연결 정보-->
