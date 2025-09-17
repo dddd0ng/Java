@@ -9,9 +9,6 @@
         <class>com.swcamp.section03.persistencecontext.Menu</class>
 
 
-
-
-
         <properties>
 
             <!--데이터베이스 연결 정보-->

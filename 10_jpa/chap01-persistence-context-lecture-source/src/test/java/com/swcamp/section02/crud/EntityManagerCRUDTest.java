@@ -15,43 +15,42 @@ public class EntityManagerCRUDTest {
     @BeforeAll
     public static void initFactory() {
         entityManagerFactory = Persistence.createEntityManagerFactory("jpatest");
-    }
+    } //전체 테스트 시작 전에 팩토리 생성
 
     @BeforeEach
     public void initManager() {
         entityManager = entityManagerFactory.createEntityManager();
-
-    }
+    } // 테스트 실행할 때마다 새로운 EntityManager(새로운 영속성 컨텍스트) 생성
 
     //method 반납해줘야함
     @AfterEach
     public void closeManager() {
         entityManager.close();
     }
-
+ // 테스트 끝나면 자원 반납
     @AfterAll
     public static void closeFactory() {
         entityManagerFactory.close();
     }
-
+// 전체 테스트 종료 후 팩토리 닫음
 
     @Test
     public void 메뉴코드로_메뉴_조회_테스트() {
         int menuCode = 2;
-
-        /* 설명. entityManager를 통해 여러번 find를 해도 select은 한번만 동작함 (DB I/O 횟수 줄임)*/
 
 
 //        Menu foundMenu = entityManager.find(Menu.class, 2); ==
         //없으면 select이 일어남
         Menu foundMenu = entityManager.find(Menu.class, menuCode);
         Menu foundMenu2 = entityManager.find(Menu.class, menuCode);
-//menuCode <=  PK (@Id) 값을 가져와야 하는자리
-
+//      menuCode <=  PK (@Id) 값을 가져와야 하는자리 (find는 PK를 기반으로 조회함)
+        //처음 조회할때만 select SQL실행
+        //두번째 조회부터 DB에 접근 하지 않고 영속성 컨텍스트 캐시(1차 캐시)에서 가져옴
+        /* 설명. entityManager를 통해 여러번 find를 해도 select은 한번만 동작함 (DB I/O 횟수 줄임)*/
 
         /* 설명. 단정문은 두 개 이상 가능하며 동일성 보장 확인*/
         Assertions.assertNotNull(foundMenu);
-        //jpa는 동일성을 보장함
+        //jpa는 동일성을 보장함, 같은 PK로 가져온 엔티티는 같은 객체.
         Assertions.assertEquals(foundMenu, foundMenu2);
         System.out.println("foundMenu = " + foundMenu);
     }
@@ -63,7 +62,7 @@ public class EntityManagerCRUDTest {
         menu.setMenuPrice(7000);
         menu.setCategoryCode(4);
         menu.setOrderableStatus("Y");
-
+ //새로운 엔티티 생성 ( 아직 비영속 상태 )
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         //commit,rollback 전 까지 transaction
