@@ -1,9 +1,6 @@
 package com.swcamp.section02.column;
+import jakarta.persistence.*;
 import jakarta.persistence.Column;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 import java.util.Date;
 
@@ -23,7 +20,7 @@ public class Member {
     @Column(name="nickname")
     private String nickname;
 
-    @Column(name="phone")
+    @Column(name="phone", columnDefinition="varchar(200) default '010-0000-0000'")
     private String phone;
 
     @Column(name="email")
@@ -33,6 +30,10 @@ public class Member {
     private String address;
 
     @Column(name="enroll_date")
+    //TemporalType.DATE, TIME, TIMESTAMP
+//    @Temporal(TemporalType.DATE) //date
+    @Temporal(TemporalType.TIME) //time
+//    @Temporal(TemporalType.TIMESTAMP) //datetime
     private java.util.Date enrollDate;
 
     @Column(name="member_role")

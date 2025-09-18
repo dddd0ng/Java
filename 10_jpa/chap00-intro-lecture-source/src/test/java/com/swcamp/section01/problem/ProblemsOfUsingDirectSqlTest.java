@@ -41,7 +41,6 @@ public class ProblemsOfUsingDirectSqlTest {
     *  2.  SQL에 의존하여 개발
     *  3. 패러다임 불일치 (상속, 연관관계, 객체 그래프 탐색)
     *  4. 동일성 보장 문제
-    *
     * */
 
     /* 설명. 1. 데이터 변환, SQL 작성, JDBC API 코드 등의 중복 작성(개발 시간 증가, 유지보수성 저하) */

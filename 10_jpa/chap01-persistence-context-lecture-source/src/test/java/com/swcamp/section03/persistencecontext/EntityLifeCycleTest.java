@@ -184,6 +184,6 @@ public class EntityLifeCycleTest {
 
         transaction.commit();
 
-        Assertions.assertEquals("수박죽", managedMenu.getMenuName());
+        Assertions.assertEquals("메론죽", managedMenu.getMenuName());
     }
 }
