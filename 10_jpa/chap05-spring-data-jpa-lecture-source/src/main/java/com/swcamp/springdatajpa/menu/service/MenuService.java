@@ -1,7 +1,10 @@
 package com.swcamp.springdatajpa.menu.service;
 
+import com.swcamp.springdatajpa.menu.controller.CategoryDTO;
 import com.swcamp.springdatajpa.menu.dto.MenuDTO;
+import com.swcamp.springdatajpa.menu.entity.Category;
 import com.swcamp.springdatajpa.menu.entity.Menu;
+import com.swcamp.springdatajpa.menu.repository.CategoryRepository;
 import com.swcamp.springdatajpa.menu.repository.MenuRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,11 +30,17 @@ public class MenuService {
 //service 계층
     private final ModelMapper modelMapper;
 
+
+    private final CategoryRepository categoryRepository;
+
+
     @Autowired
     public MenuService(MenuRepository menuRepository
-                       , ModelMapper modelMapper) {
+                       , ModelMapper modelMapper
+                    ,CategoryRepository categoryRepository) {
         this.menuRepository = menuRepository;
         this.modelMapper = modelMapper;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -59,7 +69,7 @@ public class MenuService {
                 .collect(Collectors.toList());
     }
 
-    // 2. findAll() (페이징 처리 후)
+    // 3. findAll() (페이징 처리 후)
     public Page<MenuDTO> findMenuList(Pageable pageable) {
 
         /* 넘어온 pageable 객체를 커스터마이징
@@ -82,5 +92,20 @@ public class MenuService {
 
 
 
+//      4. jpql및 native query 활용
+    public List<CategoryDTO> findAllCategory() {
 
+        List<Category> categories = categoryRepository.findAllCategories();
+
+        return categories.stream()
+                .map(category -> modelMapper.map(category, CategoryDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
+    //5. insert 진행(entity로 변환)
+    @Transactional
+    public void registMenu(MenuDTO newMenu) {
+        menuRepository.save(modelMapper.map(newMenu, Menu.class));
+    }
 }
