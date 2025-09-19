@@ -1,6 +1,10 @@
 package com.swcamp.springdatajpa.menu.controller;
 
+import com.swcamp.springdatajpa.common.Pagination;
+import com.swcamp.springdatajpa.common.PagingButtonInfo;
 import com.swcamp.springdatajpa.menu.dto.MenuDTO;
+import com.swcamp.springdatajpa.menu.entity.Menu;
+import com.swcamp.springdatajpa.menu.repository.MenuRepository;
 import com.swcamp.springdatajpa.menu.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -11,9 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import java.util.List;
 public class MenuController {
     //순서 : controller -> service 계층 만드는방식
     private final MenuService menuService;
+    private final MenuRepository menuRepository;
 
     /* Logger를 활용한 로그 생성
     * Logger 사용하면? 장점
@@ -36,8 +39,9 @@ public class MenuController {
 //    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public MenuController(MenuService menuService) {
+    public MenuController(MenuService menuService, MenuRepository menuRepository) {
         this.menuService = menuService;
+        this.menuRepository = menuRepository;
     }
 
     /* url 경로 상에 넘어온 값을 변수에 바로 담을 수 있다(Path Variable*/
@@ -102,8 +106,33 @@ public class MenuController {
         log.debug("현재 페이지 : {}",menuList.getNumber());
         log.debug("정렬 기준 : {}",menuList.getSort());
 
+        /* 설명. Page객체를 통해 PagingButtonInfo
+        (front가 페이징 처리 버튼을 그리기 위한 재료를 지닌) 추출*/
+        PagingButtonInfo paging = Pagination.getPagingButtonInfo(menuList);
+        model.addAttribute("menuList",menuList);
+        model.addAttribute("paging", paging);
+
+
+
         model.addAttribute("menuList", menuList);
 
         return "menu/list";
     }
+
+    @GetMapping("/regist")
+    public void registMenu() {}
+
+    @GetMapping("/category")
+    @ResponseBody   // 핸들러 메소드의 반환형이 View Resolver를 무시해야 할 때(feat. json 문자열로 변환)
+    public List<CategoryDTO> findCategoryList() {
+        return menuService.findAllCategory();
+    }
+
+    @PostMapping("/regist")
+    public String registMenu(MenuDTO newMenu) {
+        menuService.registMenu(newMenu);
+
+        return "redirect:/menu/list";
+    }
+
 }
