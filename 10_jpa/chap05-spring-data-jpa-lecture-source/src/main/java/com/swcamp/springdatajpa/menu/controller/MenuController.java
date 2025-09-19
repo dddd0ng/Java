@@ -73,14 +73,34 @@ public class MenuController {
     1. 기본 한 페이지에 10개의 데이터(size,value)
     2. 기본 1페이지부터 (0부터)
     3. 기본 오름차순 (ASC)
+
+    쿼리스트링 쓰는 이유
+    1. 서버로 현재 페이지 정보 전달
+    2. 서버로 정렬 기준 전달
+    3. 서버로 검색어 전달
     */
+
+
+
+
+
     /* 설명. 페이징 처리 후*/
     @GetMapping("/list")
     public String findMenuList(@PageableDefault Pageable pageable, Model model) {
         log.debug("pageable = {}", pageable);
 
-
         Page<MenuDTO> menuList = menuService.findMenuList(pageable);
+
+
+        log.debug("조회한 내용 목록 : {}", menuList.getContent());
+        log.debug("총 페이지 수 : {}", menuList.getTotalPages());
+        log.debug("총 메뉴 수 : {}",menuList.getTotalElements());
+        log.debug("해당 페이지에 표시 될 요소 수 : {}",menuList.getSize());
+        log.debug("해당 페이지에 실제 요소 수 : {} ",menuList.getNumberOfElements());
+        log.debug("Page의 number가 처음이면 (첫 페이지면) : {}", menuList.isFirst());
+        log.debug("Page의 number가 마지막이면 (마지막 페이지면) : {}",menuList.isLast());
+        log.debug("현재 페이지 : {}",menuList.getNumber());
+        log.debug("정렬 기준 : {}",menuList.getSort());
 
         model.addAttribute("menuList", menuList);
 
