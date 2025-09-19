@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,13 +60,30 @@ public class MenuController {
     }
 
     /* 설명. 페이징 처리 전*/
-    @GetMapping("/list")
-    public String findMenuList(Model model){
-        List<MenuDTO> menuList = menuService.findMenuList();
+//    @GetMapping("/list")
+//    public String findMenuList(Model model){
+//        List<MenuDTO> menuList = menuService.findMenuList();
+//
+//        model.addAttribute("menuList",menuList);
+//
+//        return "menu/list";
+//    }
 
-        model.addAttribute("menuList",menuList);
+    /* @PageableDefault
+    1. 기본 한 페이지에 10개의 데이터(size,value)
+    2. 기본 1페이지부터 (0부터)
+    3. 기본 오름차순 (ASC)
+    */
+    /* 설명. 페이징 처리 후*/
+    @GetMapping("/list")
+    public String findMenuList(@PageableDefault Pageable pageable, Model model) {
+        log.debug("pageable = {}", pageable);
+
+
+        Page<MenuDTO> menuList = menuService.findMenuList(pageable);
+
+        model.addAttribute("menuList", menuList);
 
         return "menu/list";
     }
-
 }
