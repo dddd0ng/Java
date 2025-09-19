@@ -1,5 +1,7 @@
 package com.swcamp.springdatajpa.menu.service;
 
+import com.swcamp.springdatajpa.menu.dto.MenuDTO;
+import com.swcamp.springdatajpa.menu.repository.MenuRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -8,6 +10,9 @@ import org.springframework.stereotype.Service;
 //    public MenuController(MenuService menuService) {
 //        this.menuService = menuService;
 public class MenuService {
+    private final MenuRepository menuRepository;
 
-
+    public MenuDTO findMenuByCode(int menuCode) {
+        return null;
+    }
 }
