@@ -139,8 +139,6 @@ public class MenuController {
     @PostMapping("/modify")
     public String modifyMenu(MenuDTO modifyMenu){
         menuService.modifyMenu(modifyMenu);
-        //dml  - 트랜잭션
-        //
         return "redirect:/menu/" + modifyMenu.getMenuCode();
     }
 
@@ -153,6 +151,19 @@ public class MenuController {
 
         return "redirect:/menu/list";
     }
+
+    @GetMapping("/querymethod")
+    public void queryMethodPage() {}
+
+    @GetMapping("/search")
+    public String findMenuPrice(@RequestParam int menuPrice, Model model){
+        List<MenuDTO> menuList = menuService.findMenuPrice(menuPrice);
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("menuPrice", menuPrice);
+
+        return "menu/searchResult";
+    }
+
 
 
 }

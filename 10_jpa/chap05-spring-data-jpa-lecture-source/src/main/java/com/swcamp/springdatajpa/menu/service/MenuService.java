@@ -144,7 +144,11 @@ public class MenuService {
         Menu foundMenu = menuRepository.findById(modifyMenu.getMenuCode()).get(); //pk값 반환(menucode)
         foundMenu.setMenuName(modifyMenu.getMenuName());
     }
-
+    /*7. delete 진행 */
+    @Transactional
     public void deleteMenu(int menuCode) {
+        menuRepository.deleteById(menuCode);
     }
+
+
 }
