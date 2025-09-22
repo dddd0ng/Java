@@ -95,6 +95,31 @@ public class ResponseEntityTestController {
 
     }
 
+@PutMapping("/users/{userNo}")
+    public ResponseEntity<?> modifyUser(@RequestBody UserDTO modifyMember,
+                                        @PathVariable int userNo){
+        UserDTO foundUser = users.stream()
+                .filter(user->user.getNo()==userNo)
+                .collect(Collectors.toList()).get(0);
+
+        foundUser.setId(modifyMember.getId());
+        foundUser.setPwd(modifyMember.getPwd());
+        foundUser.setName(modifyMember.getName());
+
+        return ResponseEntity.created(URI.create("/entity/users/"+userNo))
+                             .build();
+}
+
+@DeleteMapping("/users/{userNo}")
+    public ResponseEntity<?> removeUser(@PathVariable int userNo){
+        UserDTO foundUser =
+                users.stream().filter(user->user.getNo()==userNo)
+                        .collect(Collectors.toList()).get(0);
+        users.remove(foundUser);
+
+        return ResponseEntity.noContent() // 204
+                             .build();
+}
 
 
 }
