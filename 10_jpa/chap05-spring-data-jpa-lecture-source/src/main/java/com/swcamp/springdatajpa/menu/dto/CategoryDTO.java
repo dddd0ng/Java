@@ -1,4 +1,4 @@
-package com.swcamp.springdatajpa.menu.controller;
+package com.swcamp.springdatajpa.menu.dto;
 
 import lombok.*;
 
