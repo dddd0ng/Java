@@ -1,2 +1,12 @@
 ### GET requset hello
 GET localhost:8080/response/hello
+
+
+### GET request random
+GET localhost:8080/response/random
+
+### GET requset message
+GET localhost:8080/response/message
+
+### GET request test
+GET localhost:8080/response/test
