@@ -151,4 +151,14 @@ public class MenuService {
     }
 
 
+    /*8. 쿼리 메소드 활용하기*/
+    public List<MenuDTO> findMenuPrice(int menuPrice) {
+//        List<Menu> menus = menuRepository.findByMenuPriceGreaterThan(menuPrice);
+        List<Menu> menus = menuRepository.findByMenuPriceBetween(menuPrice, menuPrice +10000);
+//By 자체가 Where구문
+        return menus.stream()
+                .map(menu->modelMapper.map(menu,MenuDTO.class))
+                .collect(Collectors.toList());
+
+    }
 }
