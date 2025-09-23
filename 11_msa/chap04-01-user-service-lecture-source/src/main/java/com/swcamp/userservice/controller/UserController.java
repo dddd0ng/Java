@@ -54,6 +54,6 @@ public class UserController { //얘도 하나의 microservice
 
     userService.registUser(userDTO);
     ResponseRegistUserDTO responseUser = modelMapper.map(userDTO, ResponseRegistUserDTO.class);
-    return new ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
+    return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 }
