@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,11 @@ public class FirstServiceController {
         //대시보드에서 Status눌러서 들어가고 뒤에 주소 지우고 /health작성)
         return "I'm OK, 포트는"+env.getProperty("local.server.port");
         //("local.server.port");이걸 써줘야 포트번호 적어줌
+    }
+
+    @GetMapping("/message")
+    public String message(@RequestHeader("first-request") String header){
+        log.info("넘어온 헤더 : {}", header);
+        return "First Service Message";
     }
 }
