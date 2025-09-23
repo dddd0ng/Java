@@ -1,5 +1,10 @@
 package com.swcamp.restapi.section01.response;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +26,7 @@ import java.util.stream.Collectors;
 
 // json -> 객체형태, 배열형태
 //@Controller
+
 @RestController //이 컨트롤러의 모든 핸들러 메소드의 응답은 view resolver를 활용하지 않는다.(SSR X)
 @RequestMapping("/response")
 public class ResponseRestController {
@@ -31,10 +37,17 @@ public class ResponseRestController {
         return "Hello World!";
     }
 
+    //핸들러마다 어노테이션을 달아야 깔끔
+    @Operation(summary="랜덤 숫자 생성",description = "1부터 10까지의 랜덤한 숫자를 반환")
+    @ApiResponses(value={
+            @ApiResponse(responseCode="200",description = "성공",
+            content=@Content(mediaType="application/json",schema=@Schema(type="integer",example="7")))
+    })
     @GetMapping("/random")
     public int getRandomNumber() {
         return (int)(Math.random()*10)+1;
     }
+
 
     @GetMapping("/test")
     public List<Map<String, Object>> getTest() {
