@@ -15,8 +15,13 @@ public class UserEntity {
     @Column(name="email", nullable=false, length=50, unique=true)
     private String email;
 
-    @Column(name="pwd", nullable = false)
-    private String pwd;
+//    @Column(name="pwd", nullable = false)
+//    private String pwd;  비밀번호 평문
+
+    //비밀번호 암호화
+    @Column(name="encrypt_pwd", nullable = false)
+    private String encryptPwd;
+
 
     @Column(name="name", nullable=false, length=50)
     private String name;

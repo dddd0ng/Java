@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,11 +18,16 @@ public class UserServiceImpl implements UserService {
 
     private final ModelMapper modelMapper;
     UserRepository userRepository;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository
+                        , ModelMapper modelMapper
+                        , BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -34,6 +40,11 @@ public class UserServiceImpl implements UserService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
         log.info("Service 계층에서 DTO -> Entity: {}", userEntity);
+
+        //UserDTO로 넘어온 사용자의 암호(평문)을 BCrypt 암호화 해서(다이제스트) UserEntity에 전달
+        userEntity.setEncryptPwd(bCryptPasswordEncoder.encode(userDTO.getPwd()));
+        //DTO까진 평문에 있다가 암호화
+
 
         userRepository.save(userEntity);
     }
