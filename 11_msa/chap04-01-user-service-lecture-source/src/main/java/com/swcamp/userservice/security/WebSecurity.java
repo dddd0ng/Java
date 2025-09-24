@@ -4,6 +4,7 @@ import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,10 +16,12 @@ import java.util.Collections;
 @Configuration
 public class WebSecurity {
     private JwtAuthenticationProvider jwtAuthenticationProvider;
+    private Environment env; // JWT Token의 payload에 만료시간 만들다가 추가함
 
     @Autowired
-    public WebSecurity(JwtAuthenticationProvider jwtAuthenticationProvider) {
+    public WebSecurity(JwtAuthenticationProvider jwtAuthenticationProvider, Environment env) {
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
+        this.env = env;
     }
 
     /* 설명. 우리가 만든 프로바이더 bean으로 등록 */
@@ -45,7 +48,8 @@ public class WebSecurity {
     }
 
     /* 설명. Filter를 등록하기 위해 사용하는 메소드 */
+    /* 설명. Filter를 등록하기 위해 사용하는 메소드 */
     private Filter getAuthenticationFilter(AuthenticationManager authenticationManager) {
-        return new AuthenticationFilter(authenticationManager);
+        return new AuthenticationFilter(authenticationManager, env);
     }
 }
