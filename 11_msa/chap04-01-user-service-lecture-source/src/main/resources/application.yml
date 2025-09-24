@@ -21,3 +21,11 @@ spring:
 
 hello:
   message: Welcome to 19th SW-Camp
+
+#43,200,000=12hours / 12??? ????+HMackSha 512???
+token:
+  expiration_time: 43200000
+  secret: sQo/JV0yHGHEXOF1HenQtDiUI9+szN2+h8YddUmQ/KwklYLDZa7f6XDMKCc3Kn1fl5gfQq0uw+mgRDZ0vx2Row==
+#@Value or environment?? ?????
+
+
