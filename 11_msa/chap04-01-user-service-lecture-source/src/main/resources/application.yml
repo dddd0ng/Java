@@ -1,10 +1,10 @@
 server:
-  port: 8111
+#  port: 8111
+  port: 0
 
 spring:
   application:
     name: swcamp-user-service
-  data:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/menudb
@@ -28,4 +28,11 @@ token:
   secret: sQo/JV0yHGHEXOF1HenQtDiUI9+szN2+h8YddUmQ/KwklYLDZa7f6XDMKCc3Kn1fl5gfQq0uw+mgRDZ0vx2Row==
 #@Value or environment?? ?????
 
-
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
