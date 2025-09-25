@@ -14,54 +14,52 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j // log찍을거면 넣어주깅
 public class UserController { //얘도 하나의 microservice
 
-    private Environment env; //springframework꺼 가져오기
+    private Environment env;
     private HelloDTO hello;
     private UserService userService;
     private ModelMapper modelMapper;
 
-
-
-    //의존성 주입을 받기위해 컴포넌트
     @Autowired
-    public UserController(Environment env, HelloDTO hello,UserService userService, ModelMapper modelMapper) {
+    public UserController(Environment env,
+                          HelloDTO hello,
+                          UserService userService,
+                          ModelMapper modelMapper) {
         this.env = env;
         this.hello = hello;
         this.userService = userService;
         this.modelMapper = modelMapper;
     }
 
-    // microservice는 이런식으로 요청(겟매핑)
     @GetMapping("/health")
-    public String status(){
-        return "I'm Working in User Service"+env.getProperty("local.server.port");
+    public String status() {
+        return "I'm Working in User Service "
+                + env.getProperty("local.server.port");
     }
 
     @GetMapping("/welcome")
-    public String welcome(){
+    public String welcom() {
         return hello.getMessage();
     }
-//여기부터 DTO가 많이 들어감
-    //로그인 기능 전 회원가입 기능 먼저 만들기
+
+    /* 설명. 로그인 기능 전 회원가입 기능 먼저 만들기 */
     @PostMapping("/users")
-    public ResponseEntity<ResponseRegistUserDTO> registUser(@RequestBody RequestRegistUserDTO newUser){
+    public ResponseEntity<ResponseRegistUserDTO> registUser(@RequestBody RequestRegistUserDTO newUser) {
         UserDTO userDTO = modelMapper.map(newUser, UserDTO.class);
 
-    userService.registUser(userDTO);
-    ResponseRegistUserDTO responseUser = modelMapper.map(userDTO, ResponseRegistUserDTO.class);
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
+        userService.registUser(userDTO);
+
+        ResponseRegistUserDTO responseUser = modelMapper.map(userDTO, ResponseRegistUserDTO.class);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 
+    @GetMapping("/users/{memNo}")
+    public ResponseEntity<ResponseFindUserDTO> getUsers(@PathVariable String memNo) {
+        UserDTO userDTO = userService.getUserById(memNo);
 
-    @GetMapping("/users/{memNO}")
-    public ResponseEntity<ResponseFindUserDTO> getUser(@PathVariable Long memNO){
-    UserDTO userDTO = userService.getUserById(memNO);
+        ResponseFindUserDTO responseUser = modelMapper.map(userDTO, ResponseFindUserDTO.class);
 
-    ResponseFindUserDTO responseUser = modelMapper.map(userDTO, ResponseFindUserDTO.class);
-
-//    return ResponseEntity.ok(); 이거로 써도 됨
-    return ResponseEntity.status(HttpStatus.OK)
-            .body(responseUser);
-
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseUser);
     }
 
 }

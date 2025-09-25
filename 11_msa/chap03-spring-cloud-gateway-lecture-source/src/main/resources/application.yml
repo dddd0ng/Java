@@ -63,3 +63,7 @@ spring:
           filters:
             - RewritePath=/order-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
+
+token:
+  expiration_time: 43200000
+  secret: Hl8zctv7Zt9fO5D8lw8wzHxKFAL+VIls6mtPyoLjpnDaGAauQC8pLHree6IMSGWHZoLj6Fwmna+d02V7Wk6qIQ==

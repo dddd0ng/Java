@@ -103,4 +103,5 @@ public class AuthorizationHeaderFilter
 
         return response.setComplete();
     }
+
 }
