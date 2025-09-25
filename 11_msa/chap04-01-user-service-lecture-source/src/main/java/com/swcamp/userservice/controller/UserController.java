@@ -1,9 +1,6 @@
 package com.swcamp.userservice.controller;
 
-import com.swcamp.userservice.dto.HelloDTO;
-import com.swcamp.userservice.dto.RequestRegistUserDTO;
-import com.swcamp.userservice.dto.ResponseRegistUserDTO;
-import com.swcamp.userservice.dto.UserDTO;
+import com.swcamp.userservice.dto.*;
 import com.swcamp.userservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -11,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j // log찍을거면 넣어주깅
@@ -56,4 +50,18 @@ public class UserController { //얘도 하나의 microservice
     ResponseRegistUserDTO responseUser = modelMapper.map(userDTO, ResponseRegistUserDTO.class);
     return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
+
+
+    @GetMapping("/users/{memNO}")
+    public ResponseEntity<ResponseFindUserDTO> getUser(@PathVariable Long memNO){
+    UserDTO userDTO = userService.getUserById(memNO);
+
+    ResponseFindUserDTO responseUser = modelMapper.map(userDTO, ResponseFindUserDTO.class);
+
+//    return ResponseEntity.ok(); 이거로 써도 됨
+    return ResponseEntity.status(HttpStatus.OK)
+            .body(responseUser);
+
+    }
+
 }

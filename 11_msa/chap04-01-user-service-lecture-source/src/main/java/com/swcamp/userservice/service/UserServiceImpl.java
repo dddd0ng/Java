@@ -52,8 +52,14 @@ public class UserServiceImpl implements UserService {
         userEntity.setEncryptPwd(bCryptPasswordEncoder.encode(userDTO.getPwd()));
         //DTO까진 평문에 있다가 암호화
 
-
         userRepository.save(userEntity);
+    }
+
+    @Override
+    public UserDTO getUserById(Long memNO) {
+        UserEntity user = userRepository.findById(memNO).get();
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return userDTO;
     }
 
     //프로바이더가 호출
