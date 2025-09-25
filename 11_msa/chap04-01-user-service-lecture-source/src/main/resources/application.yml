@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: swcamp-user-service
-  data:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/menudb
