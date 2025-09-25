@@ -1,8 +1,16 @@
 package com.swcamp.orderservice.controller;
 
+import com.swcamp.orderservice.dto.OrderDTO;
+import com.swcamp.orderservice.dto.ResponseOrderDTO;
 import com.swcamp.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class OrderController {
@@ -11,5 +19,29 @@ public class OrderController {
     @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    //resultMap에 반환하는애들???????????
+    @GetMapping("/users/{userId}/orders")
+    public ResponseEntity<List<ResponseOrderDTO>> getUserOrders(@PathVariable int userId){
+     List<OrderDTO> orderDTOList = orderService.getOrderByUserId(userId);
+     List<ResponseOrderDTO> returnValue = orderDTOToResponseOrder(orderDTOList);
+    return ResponseEntity.ok().body(returnValue);
+    }
+
+    private List<ResponseOrderDTO> orderDTOToResponseOrder(List<OrderDTO> orderDTOList) {
+
+        List<ResponseOrderDTO> responseList = new ArrayList<>();
+
+        for (OrderDTO orderDTO : orderDTOList) {
+            ResponseOrderDTO responseOrder = new ResponseOrderDTO();
+            responseOrder.setOrderDate(orderDTO.getOrderDate());
+            responseOrder.setOrderTime(orderDTO.getOrderTime());
+            responseOrder.setOrderMenus(orderDTO.getOrderMenus());
+
+            responseList.add(responseOrder);
+        }
+
+        return responseList;
     }
 }
