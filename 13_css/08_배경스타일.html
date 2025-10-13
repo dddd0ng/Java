@@ -6,13 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background: brown;
+            background: rgb(110, 60, 3);
         }
 
         #div-bg {
             width: 50%;
             background: white;
             margin-left: -8px;
+        }
+
+        .div-test {
+            background-color: white;
+
+            margin-right: 10px;
+            padding: 20px;
+            border: 5px dashed black;
+            width: 20%;
+            float: left;
+        }
+
+        #div1 {
+            background-clip: border-box;
+            /* 기본 범위 */
+        }
+
+        #div2 {
+            background-clip: padding-box;
+        }
+
+        #div3 {
+            background-clip: content-box;
+        }
+
+        #bg-img {
+            background: white;
+            width: 70%;
+            height: 1600px;
+
+            background-image: url('sample/image/flower1.PNG');
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            /* 이미지가 크롭되지 않도록 하는 선에서 최대한 배경을 채우도록 */
+            background-size: contain;
+
+            background-attachment: fixed;
+            /* 배경으로 이미지를 활용할 때 자주 사용 */
+            background-attachment: scroll;
+            /* 이미지 배경의 기본 값 */
+
+            background-position: 50% 50%;
+            background-position: 30px 50px;
+            background-position: right;
         }
     </style>
     <title>Document</title>
