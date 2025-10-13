@@ -5,8 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        #test1 {
+            background: pink;
+        }
+
+        .test1 {
+            background: yellow;
+        }
+
         div {
             background: darkviolet;
+            color: black;
             width: 200px;
             height: 200px;
         }
@@ -28,9 +37,8 @@
     <h2>선택자 우선순위 테스트
         <!-- #test1.test1{우선순위 테스트} -->
         <div id="test1" class="test1">우선순위 테스트</div>
-        <!-- p#teest2.test2[style="background:yellowgreen;"]{우선순위 테스트2}-->
-        <!-- <p id="teest2" class="test2" style="background:yellowgreen;">우선순위 테스트2</p> -->
-
+        <!-- p#test1.test1[style="background:yellowgreen;"]{우선순위 테스트2}-->
+        <p id="test1" class="test1" style="background:yellowgreen;">우선순위 테스트2</p>
     </h2>
 </body>
 
