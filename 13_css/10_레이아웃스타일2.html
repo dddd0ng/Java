@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 화면의 요소를 배치하기 위해서는 두가지 좌표 체계를 고려해야 한다.
+            1.절대 위치
+            2.상대 위치(부모 태그에 position:relative일 때만 적용 가능)
+            (둘 다 자식 태그에는 position:absolute가 적용되어 있어야 한다.)*/
+
+        .outer {
+            border: 1px solid red;
+            width: 500px;
+            height: 500px;
+            position: relative;
+        }
+
+        .first {
+            width: 300px;
+            height: 300px;
+            background-color: yellow;
+            top: 0px;
+            left: 0px;
+            position: absolute;
+        }
+
+        .second {
+            width: 300px;
+            height: 300px;
+            background-color: yellowgreen;
+            top: 50px;
+            left: 50px;
+            position: absolute;
+        }
+
+        .third {
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+            top: 100px;
+            left: 100px;
+            position: absolute;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>배치 관련 스타일</h1>
+    <h3>절대 위치와 상대 위치(중요함)</h3>
+    <!-- div.outer>(div.postioning)*3 -->
+    <div class="outer">
+        <div class="postioning first"></div>
+        <div class="postioning second"></div>
+        <div class="postioning third"></div>
+    </div>
+</body>
+
+</html>
