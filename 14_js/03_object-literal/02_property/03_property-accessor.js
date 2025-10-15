@@ -21,8 +21,11 @@ console.log(obj.under_key); //under_key
 // console.log(obj."dash-key"); //에러
 // console.log(obj.0); //에러
 
+//대괄호 표기법은 프로퍼티명이 문자열이기만 하면 모두 접근 가능
+//대괄호 표기법의 프로퍼티명은 반드시 따옴표로 감싸야함(문자열임을 명시)
+//대괄호 표기법은 다양한 형태의 프로퍼티들을 모두 접근 할 수 있음
 console.log(obj['under_key']); //under_key
 console.log(obj['dash-key']); //dash-key
 console.log(obj['0']); //1
 //숫자 프로퍼티명은 내부적으로 문자열로 변환됨
-console.log(obj[0]); //1
+console.log(obj[0]); //1 ㅡ 숫자 프로퍼티 키 값일 경우에는 숫자로 바로 전환

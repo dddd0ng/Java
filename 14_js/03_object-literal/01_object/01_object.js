@@ -17,9 +17,10 @@ var student = {
     age: 16,
     //객체 안에 없어도 함수를 만들 수 있음(함수지향언어라)
     //객체 안에 있는 함수를 메서드라 따로 부름
-    //기능 프로퍼티(=메서드)
+    //기능 프로퍼티(=메서드) 메서드 안에서 This는 자기자신을 가리킴, this빼먹지말기
+    //메서드 안에는 this.를 반드시 써야함(안쓰면 전역변수(global객체의 property)가 나올 수 있음)
     getInfo: function () {
-        return `${this.name}(은)는 ${this.age}세 입니다.`;
+        return `${this.name}(은)는 ${this.age}세 입니다.`; //this는 메서드를 포함한 객체를 의미
     } //얘는 리터럴이 아니라 세미콜론 적으면 에러뜸
 };
 
@@ -27,3 +28,4 @@ console.log('student : ', student); //{ name: '유관순', age: 16, getInfo: [Fu
 console.log('이름 : ', student.name); //유관순
 console.log('나이 : ', student.age); //16
 console.log('정보 : ', student.getInfo()); //유관순(은)는 16세 입니다.
+//메서드는 소괄호(())를 통해 실행도 가능

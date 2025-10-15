@@ -12,7 +12,8 @@ obj = {
 var val = obj?.value2; //NPE 방지 코드
 console.log(val);
 
-
+// 좌항이 null이나 undefined인 경우가 아니라면 ?. 쓸 필요 없이 . 으로만 사용해도 된다.
 var str = '';
+console.log(str);
 var len = str?.length;
 console.log(len);
