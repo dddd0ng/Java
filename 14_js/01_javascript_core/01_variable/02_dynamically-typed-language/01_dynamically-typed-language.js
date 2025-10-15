@@ -13,11 +13,12 @@ console.log(typeof test);
 test = Symbol();
 console.log(typeof test);
 
-test = {};
-console.log(typeof test);
+test = {}; // JSON Object
+console.log(typeof test); //객체
 
-test = [];
-console.log(typeof test);
+test = []; // JSON Array
+console.log(typeof test); //객체
 
-test = function () { };
-console.log(typeof test);
+test = function () { }; 
+// 함수가 리터럴, 함수지향언어(함수를 추구하는 언어)
+console.log(typeof test); //객체
