@@ -4,3 +4,26 @@
 자바스크립트의 객체는 키와 값으로 구성된 프로퍼티(property)의 집합이다.
 */
 
+//리터럴 객체 -> 변수에 대입되는 객체니까
+var name = '홍씨';
+var age = 10;
+console.log(globalThis); //브라우저에선 window, 노드에선 global
+console.log(this); //전역 공간에선 globalThis와 this가 같음
+//리터럴 객체 -> 변수에 대입되는 객체니까
+var student = {
+
+    //속성 프로퍼티
+    name: '유관순',
+    age: 16,
+    //객체 안에 없어도 함수를 만들 수 있음(함수지향언어라)
+    //객체 안에 있는 함수를 메서드라 따로 부름
+    //기능 프로퍼티(=메서드)
+    getInfo: function () {
+        return `${this.name}(은)는 ${this.age}세 입니다.`;
+    } //얘는 리터럴이 아니라 세미콜론 적으면 에러뜸
+};
+
+console.log('student : ', student); //{ name: '유관순', age: 16, getInfo: [Function: getInfo] }
+console.log('이름 : ', student.name); //유관순
+console.log('나이 : ', student.age); //16
+console.log('정보 : ', student.getInfo()); //유관순(은)는 16세 입니다.
