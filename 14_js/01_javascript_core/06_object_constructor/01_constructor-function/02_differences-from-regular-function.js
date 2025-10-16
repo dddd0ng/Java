@@ -38,3 +38,5 @@ console.log(dog); // Dog { name: '뽀삐', age: 3 }
 
 const dog2 = new Dog('두부', 5);
 console.log(dog2); // Dog { name: '두부', age: 5 }
+
+//제공되는 빌트인 함수들 : Object(), String(), Number(), Boolean(), Array(), Date(), RegExp(), Function() 등

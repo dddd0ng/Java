@@ -1,9 +1,10 @@
 function outer() {
-    var outerVar = "외부함수";
+    var outerVal = "외부함수";
 
     function inner() {
         var innerVal = "내부함수";
-    }
+        console.log(outerVal, innerVal)
+    }//작은범위에서 높은범위로 -> 스코프 체인, 상위로 올라간다
     inner(); // Call the inner function
 }
 // inner(); // Error: inner is not defined

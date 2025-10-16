@@ -13,3 +13,10 @@ function hello(name) {
 (function (name) {
     console.log(`${name} hello!`);
 }('Hong'));
+
+// 매개변수 있는 함수에 인수를 전달 할 수는 있지만, 기명함수로 만들어도 외부에서 호출은 X
+// (function greeting(name) {
+//     console.log(`${name} hello!`);
+// }('Hong'));
+
+// greeting('Kim'); // error, greeting is not defined
