@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>02. interval</h1>
+    <h3>setInterval</h3>
+    <p>
+        setInterval은 콜백함수가 두번째 인수로 던져지는 시간마다 동작하게 할 수 있다.
+        clearInterval을 통해 원하는 시점에 멈출 수 있으며 멈출 수 있는 조건을 가지게 하는것이 중요하다.(반복 탈출 조건 명시)
+    </p>
+    <script>
+        let count = 0;
+        // const timeId = setInterval(() => {
+        //     console.log(++count);
+        //     if (count == 6) {
+        //         clearInterval(timeId);
+        //         console.log('interval timer 종료');
+        //     }
+        // }, 1000);
+
+        /*기존에 존재하는 함수가 있다면, setInterval에 넣는 순간 콜백함수로 활용할 수 있다.*/
+        const timeId = setInterval(callback, 1000);
+        const callback = () => {
+            console.log(++count);
+            if (count == 6) {
+                clearInterval(timeId);
+                console.log('interval timer 종료');
+            }
+        };
+
+    </script>
+
+</body>
+
+</html>
