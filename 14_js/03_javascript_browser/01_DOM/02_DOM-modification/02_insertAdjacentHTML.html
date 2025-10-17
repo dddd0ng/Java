@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>02. insertAdjacentHTML</h1>
+    <p>
+        우리가 원하는 위치에 새로운 요소를 추가하는 4가지 방법을 제공하며 innerHTML 프로퍼티보다
+        빠르고 효율적이다.
+    </p>
+    <div id="area">
+        insertAdjacentHTML 메소드 사용 테스트
+    </div>
+    <script>
+        const $area = document.querySelector('#area');
+        $area.insertAdjacentHTML('beforebegin', '<h1>beforebegin 테스트</h1>');
+        $area.insertAdjacentHTML('afterbegin', '<h1>afterbegin 테스트</h1>');
+        $area.insertAdjacentHTML('beforeend', '<h1>beforeend 테스트</h1>');
+        $area.insertAdjacentHTML('afterend', '<h1>afterend 테스트</h1>');
+    </script>
+</body>
+
+</html>

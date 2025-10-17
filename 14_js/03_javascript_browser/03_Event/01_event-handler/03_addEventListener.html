@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- <body>
+    <h1>3. addEventListener() 메서드</h1>
+    <p>
+        addEventListener() 메서드는 이벤트를 추가하는 표준적인 방법이다.
+        이 메서드를 사용하면 여러 개의 이벤트 핸들러를 추가할 수 있다.
+    </p>
+
+    <button id="btn"> 클릭해 보세요 </button>
+    <script>
+        const $button = document.querySelector('#btn');
+        $button.addEventListener('click', function () {
+            alert('익명 함수로 이벤트 핸들러 추가!');
+        });
+
+        let func = function () {
+            alert('기명 함수로 이벤트 핸들러 추가!');
+        };
+        $button.addEventListener('click', func);
+    </script> -->
+
+<h1>03.addEventListener 메서드 방식</h1>
+<p>요소들에서 제공하는 addEventListener 메소드를 사용하는 방식이다.</p>
+<button id="btn"> 클릭해 보세요 </button>
+<script>
+    const $button = document.querySelector('#btn');
+
+    /*
+    addEventListener의 첫번째 인수로는 이벤트의 종류(타입)를 문자열로,
+    두번째는 이벤트 핸들러 역할을 할 함수를 부여한다.
+    */
+    $button.addEventListener('click', function () {
+        alert('첫번째 클릭!');
+    });
+
+    $button.addEventListener('click', function () {
+        alert('두번째 클릭!');
+    });
+
+    $button.addEventListener('click', function () {
+        alert('세번째 클릭!');
+    });
+    console.log($button);
+
+</script>
+
+</body>
+
+</html>
