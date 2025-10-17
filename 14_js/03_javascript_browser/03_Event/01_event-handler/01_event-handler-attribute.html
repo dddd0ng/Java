@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>01. 이벤트 핸들러 어트리뷰트</h1>
+    <p>
+        HTML 이벤트 핸들러 어트리뷰트(on 접두사 + 이벤트 타입)값으로 함수 호출문을 할당하여
+        이벤트 핸들러를 등록할 수 있다.
+        (주의사항, 바닐라js에서 어트리뷰트 방식은 반드시 해당 함수를 호출하게끔 작성할 것)
+    </p>
+    <div class="attr">
+        <button onclick="window.alert('안뇽'); console.log('반갑소')">클릭!</button>
+        <button onmouseover="hello('수강생');">마우스를 올려보세요</button>
+    </div>
+    <script>
+
+        /* 이벤트 핸들러로 활용될 함수는 선언문 형태든 표현식 형태든 둘 다 가능하다.(feat.함수 호이스팅) */
+        // let hello = function(name) {
+        //     alert(`${name}씨, 마우스 올리지 마요!`);
+        // };
+
+        function hello(name) {
+            alert(`${name}씨, 마우스 올리지 마요!`);
+        }
+    </script>
+</body>
+
+</html>

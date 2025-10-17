@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>02. 태그 이름을 이용한 요소 노드 취득</h2>
+    <!-- ul#food>li*3 -->
+    <ul id="food">
+        <li>김치찌개</li>
+        <li>된장찌개</li>
+        <li>고등어구이</li>
+    </ul>
+    <ul id="drink">
+        <li>커피</li>
+        <li>콜라</li>
+        <li>우유</li>
+    </ul>
+    <script>
+        const $ul = document.getElementById('food');
+        console.log('$ul:', $ul);
+
+        const $lists = document.getElementsByTagName('li');
+        console.log('$lists:', $lists);
+        console.log(Object.getOwnPropertyDescriptors($lists));
+
+        console.log($lists[0].innerHTML);
+        $lists[0].innerHTML = '청국장';
+
+        let changeColor = 0;
+        for (let i = 0; i < $lists.length; i++) {
+            $lists[i].style.backgroundColor = 'rgb(130, 220, ' + changeColor + ')';
+            changeColor += 40;
+        }
+
+        /* 유사배열 -> spread 연산자 활용 -> 배열(forEach 고차함수 활용 가능) */
+        [...$lists].forEach(list => list.style.color = 'blue');
+    </script>
+</body>
+
+</html>
