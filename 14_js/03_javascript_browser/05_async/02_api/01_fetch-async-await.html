@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        async function callAPI() {
+
+            /* GET을 제외한 나머지 http method 방식을 할 때는 fetch의 두번째 인자로 객체 형태로 부가 정보를 넘길 수 있음 */
+            // const promise = fetch('http://jsonplaceholder.typicode.com/users', {
+            //                         method: "POST", 
+            //                         headers: {
+            //                         "Content-Type": "application/json",
+            //                         },
+            //                         body: JSON.stringify({
+            //                             name: '홍씨',
+            //                             age: 2
+            //                         }), 
+            //                     });
+            const promise = fetch('http://jsonplaceholder.typicode.com/users');
+            // console.log(promise);
+
+            // const response = await promise;
+            // console.log(response);
+
+            // const jsonPromise = response.json();
+            // const result = await jsonPromise;
+            // console.log(typeof result);           // 전체 회원
+            // console.log(result[2].name);   // 3번째 회원의 이름
+
+            /* 1. fetch의 결과인 promise를 then 메소드 활용 */
+            promise.then(response => {
+                console.log('then을 통한 fetch 이후 promise의 결과: ', response);
+            });
+
+            /* 2. async await 활용 */
+            const response = await promise;
+            console.log('await를 통한 fetch 이후 promise의 결과: ', response);
+
+            /*3. fetch의 결과로 돌아온 response 응용하기*/
+            //3-1 status
+            console.log(`응답 상태: ${response.status}`);
+
+            //3-2headers
+            console.log(`응답 헤더: ${response.headers}`);
+
+            // const headerIterator = respons.headers[Symbol.iterator]();
+            // let headerEntry = headerIterator.next();
+            // console.log(headerEntry);
+            // while (!headerEntry.done) {
+            //     const [key, value] = headerEntry.value;
+            //     console.log(`key: ${key}, value: ${value}`);
+            //     headerEntry = headerIterator.next();
+            // }
+
+            /*
+            for in문 : 객체의 프로퍼티들을 순회하며 확인하기 위한 반복문
+            for of문 : Symbol.iterator를 구현한 컬렉션 타입들을 순회하며 반복하기 위한 반복문
+            */
+
+
+            for (let [key, value] of response.headers) {
+                console.log(`key: ${key}, value: ${value}`);
+            }
+
+            //3-3 bodyUsed
+            console.log(`넘어온 결과인 json 문자열(결과 데이터)를 사용했는지 여부 : ${response.bodyUsed}`);
+
+            //3-3-1 json으로 꺼내기
+            // const json = await response.json(); // json 문자열(통신의 결과 body에 담긴 내용) => json 객체(파싱)
+            // console.log(json);
+            // console.log(`사용 여부(json) : ${response.bodyUsed}`);
+            // console.log(JSON.stringify(json)); //JSON 객체 => 문자열
+
+            //3-3-2 text로 꺼내기
+            const text = await response.text(); // json 문자열(통신의 결과 body에 담긴 내용) => json 문자열(그대로)
+            console.log(text);
+            console.log(`사용 여부(text) : ${response.bodyUsed}`);
+            console.log(JSON.parse(text)); // JSON 문자열 => 객체
+        }
+
+
+
+        callAPI();
+    </script>
+</body>
+
+</html>

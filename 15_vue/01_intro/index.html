@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <!-- 
+mount    
+-->
+
+    <div id="app">
+        <!-- 보간법(interpolation 문법)-->
+        <h5>{{message}}</h5>
+        <hr>
+        <h5>Raw Html</h5>
+        <p>v-html directive : <span v-html="rawHtml"></span></p>
+        <p>text interpolation: {{ rawHtml }}</p>
+        <p>v-text directive: <span v-text="rawHtml"></span></p>
+
+
+    </div>
+
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        // vue 3에서 지원하는 composition api 방식 활용
+        createApp({
+            setup() {
+                const message = ref('Hello, Vue 3!');
+                //ref로 감싸여진 데이터를 담은 변수 - 반응형(성) 변수(reactive variable)
+                const rawHtml = '<strong style="color: red;">This is red bold text</strong>';
+                return {
+                    message,
+                    rawHtml
+                }
+            }
+        }).mount('#app');
+
+        /*vue 3 이전에 활용했던 방식인 options api 방식 활용(옛날 방식이므로 지양하자(안되는 경우도 있음))*/
+
+        // createApp({
+        //     data() {
+        //         const message = 'Hello, Vue 2!';
+        //         return {
+        //             message
+        //         }
+        //     },
+        //     method: {
+        //         test() {
+
+        //         }
+        //     }
+        // }).mount('#app');
+
+        /*
+        compostion api vs options api 차이
+        - composition api는 데이터를 관리하는 방식이 데이터를 사용하는 방식과 비슷해서
+        직관적이다. 즉, 데이터를 정의하고 사용하는 코드가 같은 함수 내에 있어 이해하기 쉽다.
+        - options api는 데이터를 관리하는 방식이 데이터를 사용하는 방식과 구분된다.
+        즉, 데이터를 정의하는 코드와 사용하는 코드를 따로 작성해야 해서 가독성이 되려 떨어지는 측면이 있다.
+        */
+
+
+    </script>
+
+</body>
+
+</html>

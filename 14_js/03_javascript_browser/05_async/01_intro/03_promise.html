@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function increase(number) {
+
+            //promise : 비동기 결과(성공/실패)를 가직 객체(콜백 지옥을 피하기 위해 사용됨)
+            //비동기 함수들을 동기식으로 진행할 때 필수적인 객체(일종의 비동기 함수 포장지)
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const result = number + 10;
+
+                    if (result > 50) {
+                        const e = new Error('NumberTooBig')
+
+                        return reject(e);
+                    }
+                    return resolve(result);
+
+                }, 1000);
+
+            });
+            return promise;
+        }
+
+        console.log(increase(0));
+        //백엔드에서 넘어온거를 이런 형태로 저장해야함
+        increase(0)
+            .then(result => {
+                console.log('then의 콜백 함수에 넘어온 result : ', result);
+                return increase(result);
+            })
+            .then(result => {
+                console.log('then의 콜백 함수에 넘어온 result : ', result);
+                return increase(result);
+            })
+            .then(result => {
+                console.log('then의 콜백 함수에 넘어온 result : ', result);
+                return increase(result);
+            })
+            .then(result => {
+                console.log('then의 콜백 함수에 넘어온 result : ', result);
+                return increase(result);
+            })
+            .catch(error => {
+                console.log('에러 발생 : ', error)
+                    .finally(() => {
+                        console.log('무조건 실행');
+                    });
+            });
+        /*
+            then:이전 작업이 성공적으로 완료 되었을 때 promise에 담긴 성공(resolve에 담긴)을
+                추출하여 확인하는 콜백함수가 동작하는 메소드
+            catch:이전 작업이 실패했을 때(에러 발생 시) promise에 담긴 실패(reject에 담긴)를
+                추출하여 콜백함수가 동작하는 메소드
+            finally : 비동기 작업이 성공하든 실패하든 상관없이 항상 콜백함수가 동작하는 메소드
+            (이 메소드들을 통해 들여쓰기가 줄어들어 가독성이 좋아지고 유지보수성이 향상된다.)
+        */
+
+    </script>
+
+</body>
+
+</html>

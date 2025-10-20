@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../../../Downloads/dog-breed-identification"
+		},
+		{
+			"path": "../../../../../inflearn/htmltest"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "htmltest"
+	}
+}

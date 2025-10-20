@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function increase(number) {
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const result = number + 10;
+
+                    if (result > 50) {
+                        const e = new Error('NumberTooBig')
+
+                        return reject(e);
+                    }
+                    return resolve(result);
+
+                }, 1000);
+
+            });
+            return promise;
+        }
+        //then or await을 사용해서 비동기 함수의 결과물을 받아올 수 있다.
+
+        /*
+        await의 두가지 기능
+        1.await가 달린 함수(increase)의 결과인 promise 객체에 담긴 결과(성공/실패)를 반환한다.
+        (then()과 유사)
+        2.await가 담긴 비동기 처리들은 그들 간에는 동기식으로 동작하게 된다.
+        (앞선 비동기의 결과로 다음 비동기 함수를 실행할 수 있다.)
+
+        then 메소드처럼 callback 함수는 필요 없지만 전체를 감싸는 async 함수는 반드시 필요하다.
+        (주의 : await를 쓰기위해 함수에 async를 추가하면 함수의 반환값이 promise가 된다.)
+        */
+        async function run() {
+            let result = await increase(0);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            return -1;
+        }
+
+        // console.log(run());
+
+        // 1.then 방식
+        // run.then(result => console.log('async의 결과인 promise에 담긴 값', result));
+
+
+        // 2.async await 방식
+        async function run2() {
+            let result = await run();
+            console.log('async의 결과인 promise에 담긴 값', result);
+        }
+        run2();
+    </script>
+</body>
+
+</html>
