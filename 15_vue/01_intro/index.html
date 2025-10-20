@@ -9,13 +9,18 @@
 </head>
 
 <body>
+    <!-- 
+mount    
+-->
+
     <div id="app">
         <!-- 보간법(interpolation 문법)-->
         <h5>{{message}}</h5>
         <hr>
         <h5>Raw Html</h5>
-        <p>v-html directive : <span v-html="rawHtml"></span></span>></p>
+        <p>v-html directive : <span v-html="rawHtml"></span></p>
         <p>text interpolation: {{ rawHtml }}</p>
+        <p>v-text directive: <span v-text="rawHtml"></span></p>
 
 
     </div>
