@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function increase(number) {
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const result = number + 10;
+
+                    if (result > 50) {
+                        const e = new Error('NumberTooBig')
+
+                        return reject(e);
+                    }
+                    return resolve(result);
+
+                }, 1000);
+
+            });
+            return promise;
+        }
+        //then or await을 사용해서 비동기 함수의 결과물을 받아올 수 있다.
+        async function run() {
+            let result = await increase(0);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            // return -1;
+        }
+        // console.log(run());
+
+        // run.then(result => console.log('async의 결과인 promise에 담긴 값', result));
+    </script>
+</body>
+
+</html>
