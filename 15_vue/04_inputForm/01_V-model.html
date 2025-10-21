@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        div {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .custom-input input {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="step01">
+        <div>
+            <h4>name: {{ name }}</h4>
+            <h4>address: {{ address }}</h4>
+            <h4>age: {{ age }}</h4>
+            <h4>introduce: |{{ introduce }}|</h4>
+        </div>
+        <label>이름: </label>
+        <input type="text" v-model="name"><br>
+        <label>주소: </label>
+        <input type="text" v-model="address"><br>
+        <label>나이: </label>
+
+        <!-- .number: 내부적으로 숫자가 먼저 나오면 숫자형(number)으로 바꾸고 이후 문자열은 인식 X -->
+        <input type="text" v-model.number="age"><br>
+        <label>자기소개: </label>
+
+        <!-- .trim: 양쪽 공백 제거 -->
+        <input type="text" v-model.trim="introduce">
+    </div>
+
+    <!-- textarea -->
+    <div id="step02">
+        <p>vue에 대한 생각을 작성해 주세요: {{ message }}</p>
+        <textarea v-model="message"></textarea>
+
+        <!-- textarea 작성 후 blur(포커스 out) 시에 반응형 데이터가 수정됨(데이터 수정 횟수 최소화) -->
+        <p>느리게 반영되는 msg: {{ msg }}</p>
+        <textarea v-model.lazy="msg"></textarea>
+    </div>
+
+    <div id="step03">
+        <p>단일 선택: {{ selected }}</p>
+        <select v-model="selected">
+            <option value="apple">apple</option>
+            <option value="pineapple">pineapple</option>
+            <option value="grape">grape</option>
+        </select>
+        <br>
+        <p>다중 선택: {{ fruits }}</p>
+        <select v-model="fruits" multiple>
+            <option value="apple">apple</option>
+            <option value="pineapple">pineapple</option>
+            <option value="grape">grape</option>
+        </select>
+    </div>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const name = ref('');
+                const address = ref('');
+                const age = ref(0);
+                const introduce = ref('');
+
+                return {
+                    name,
+                    address,
+                    age,
+                    introduce
+                }
+            }
+        }).mount("#step01");
+
+        createApp({
+            setup() {
+                const message = ref('');
+                const msg = ref('');
+
+                return {
+                    message,
+                    msg
+                }
+            }
+        }).mount('#step02');
+
+        createApp({
+            setup() {
+                const selected = ref('grape');
+                const fruits = ref([]);
+                return {
+                    selected,
+                    fruits
+                }
+            }
+        }).mount('#step03');
+    </script>
+</body>
+
+</html>

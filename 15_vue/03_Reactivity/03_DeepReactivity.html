@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="step01">
+        <h1>상품 담기</h1>
+
+        <select v-model="selectedFruit">
+            <option v-for="fruit in fruits" :value="fruit">
+                {{ fruit.name }}
+            </option>
+        </select>
+        <button @click="addProduct(selectedFruit)">상품 추가</button>
+        <hr>
+        <ul>
+            <li v-for="list in basket">{{ list }}</li>
+        </ul>
+        <p>{{ totalPrice }}</p>
+    </div>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const selectedFruit = ref({
+                    name: "Apple", price: 2000
+                });
+                const fruits = ref([
+                    { name: "Apple", price: 2000 },
+                    { name: "Banana", price: 3000 },
+                    { name: "Pineapple", price: 4000 }
+                ]);
+
+                /* 모든 반응형 변수는 초기에 값이 없더라도 해당 타입의 초기값은 넣자! */
+                const basket = ref([]);
+                const totalPrice = ref(0);
+
+                const addProduct = (product) => {
+                    basket.value.push(product.name);
+                    totalPrice.value = totalPrice.value + product.price;
+                }
+
+
+                return {
+                    selectedFruit,
+                    fruits,
+                    basket,
+                    totalPrice,
+                    addProduct
+                }
+            }
+        }).mount("#step01");
+    </script>
+</body>
+
+</html>
