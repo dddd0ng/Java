@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 
+v-bind는 Vue.js에서 HTML요소의 속성을 동적으로 바인딩 할 수 있게 해주는 디렉티브(지시자)이다.
+v-bind:은 생략 가능하며 :(클론)만 작성해도 된다. (ex-> v-bind:class -> :class)
+(단, 클론이 없으면 다중 속성 부여를 위한 것으로 객체 데이터를 바인딩한다.)
+-->
+
+
+    <div id="step01">
+        <h5>다중 속성 바인딩</h5>
+        <div v-bind="multiAttr">{{multiAttr}}</div>
+        <button @click="fun">ref에 담긴 객체 접근</button>
+    </div>
+    <script>
+        const { createApp, ref, reactive } = Vue;
+
+        createApp({
+            setup() {
+                const multiAttr = ref({
+                    id: "multiId",
+                    class: "multiClass",
+                    value: "multiValue"
+                });
+
+                const fun = () => {
+                    console.log("ref가 관리하는 객체 : ", multiAttr.value);
+                    console.log("value 속성 : ", multiAttr.value.value);
+                }
+                //reactive는 원시값을 못쓰고 객체나 배열만 쓸 수 있음.
+                //multiAttr뒤에 .value 안붙여도 됨.
+                // const multiAttr = reactive({
+                //     id: "multiId",
+                //     class: "multiClass",
+                //     value: "multiValue"
+                // });
+
+                // const fun = () => {
+                //     console.log("ref가 관리하는 객체 : ", multiAttr);
+                //     console.log("value 속성 : ", multiAttr.value);
+                // }
+
+
+                return {
+
+                    multiAttr,
+                    fun
+                }
+            }
+        }).mount("#step01");
+    </script>
+</body>
+
+</html>
+
+<!-- @ <=> v-on: -->

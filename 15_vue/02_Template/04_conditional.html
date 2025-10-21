@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <!-- 1. v-show: 상황에 따라 화면에 요소를 보여주거나 숨기는데 사용한다. -->
+    <div id="step01">
+        <button @click="setState">문자열 토글 버튼</button>
+        <h1 v-show="state">Hello!</h1>
+        <!-- 
+           v-show에 boolean을 대입해서 인라인 스타일 방식으로 
+            display:none이 적용 될 수 있다.
+ -->
+
+    </div>
+
+    <!-- 2. v-if: 상황에 따라 요소 자체가 마운트/안마운트 될 시 활용 할 수 있다 -->
+    <div id="step02">
+        <div v-if="isTrue">
+            <p>참 인 경우</p>
+        </div>
+        <div v-if="!isTrue">
+            <p>거짓인 경우</p>
+        </div>
+        <div v-if="truthy">
+            <p>{{truthy}}</p>
+        </div>
+        <div v-if="!falsy">
+            <p>!falsy</p>
+        </div>
+    </div>
+
+
+    <div id="step03">
+        <h1 v-if="awesome == 'awesome'">Vue is awesome!</h1>
+        <h1 v-else-if="awesome == 'good'">soso</h1>
+        <h1 v-else>Oh no!</h1>
+        <button @click="setToggle">toggle</button>
+    </div>
+
+
+
+    <!-- <div id="step04">
+        <div>
+            <h1>awesome</h1>
+            <h2>good</h2>
+        </div>
+
+    </div>
+ -->
+
+    <!-- 
+ template는 태그는 실제 DOM 요소로 해석되지 않고 요소의 범위를
+ 지정하기 위한 용도로 쓸 수 있다.
+    -->
+
+    <div id="step04">
+        <template v-if="isTrue">
+            <h1>awesome</h1>
+            <h2>good</h2>
+        </template>
+    </div>
+
+
+
+
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const state = ref(true);
+                function setState() {
+                    state.value = !state.value;
+                }
+                return {
+                    state,
+                    setState
+
+
+                }
+            }
+        }).mount("#step01");
+
+
+        createApp({
+            setup() {
+
+                const isTrue = ref(true);
+                const truthy = ref("truthy");
+                const falsy = ref('');
+
+
+                return {
+                    isTrue,
+                    truthy,
+                    falsy
+                }
+            }
+        }).mount("#step02");
+
+
+        createApp({
+            setup() {
+                const awesome = ref('');
+                let count = 0;
+                function setToggle() {
+                    const options = ['awesome', 'good', 'bad'];
+                    const optionIndex = count % options.length;
+
+                    console.log('count', count);
+                    console.log('optionIndex', optionIndex);
+
+
+
+                    awesome.value = options[optionIndex];
+                    count++;
+                }
+                return {
+                    awesome,
+                    setToggle
+                }
+            }
+        }).mount("#step03");
+
+
+        createApp({
+            setup() {
+                const isTrue = ref(true);
+                return {
+                    isTrue
+                }
+            }
+        }).mount("#step04");
+    </script>
+</body>
+
+</html>
