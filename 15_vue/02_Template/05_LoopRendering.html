@@ -72,10 +72,16 @@
 
 
 
-    <!-- <div v-for=item in items : key = "itemi.id"> -->
+    <!--
+        :key
+        Vue가 렌더링된 요소 목록을 업데이트 할 때 v-for는 기본적으로 반복되어 나온 DOM 요소들 전체를 확인하게 된다. 
+        이 때 Vue가 각 노드의 id를 추적할 수 있도록 힌트를 주고 기존 요소를 재사용하여 순서를 변경함에 있어 
+        용이하게 하기 위해서 key라는 정보를 제공하면 성능상 이점을 가져갈 수 있다. 
+        (사실상 반복문에서 필수로 적게 된다.)
+    -->
     <div id="step05">
-        <div v-for=item in items : key="itemi.id">
-            {{item.id}} - {{item.name}}
+        <div v-for="item in items" :key="item.id">
+            {{ item.id }} - {{ item.name }}
         </div>
     </div>
 
@@ -143,17 +149,18 @@
         }).mount("#step04");
 
 
+
         createApp({
             setup() {
-                { name: '사과', state: true },
-                { name: '바나나', state: false },
-                // 보기 싫으면 false
-                { name: '오렌지', state: true },
-                { name: '포도', state: false },
-                // 보기 싫으면 false
-                { name: '수박', state: true }
+                const items = ref([
+                    { id: 1, name: '사과' },
+                    { id: 2, name: '바나나' },
+                    { id: 3, name: '오렌지' },
+                    { id: 4, name: '포도' },
+                    { id: 5, name: '수박' }
+                ]);
                 return {
-
+                    items
                 }
             }
         }).mount("#step01");
