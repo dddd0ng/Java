@@ -67,6 +67,27 @@
             <option value="grape">grape</option>
         </select>
     </div>
+
+    <!-- checkbox -->
+    <div id="step04">
+        <p>과일 목록: {{ fruits }}</p>
+        <input type="checkbox" id="apple" name="check" value="apple" v-model="fruits">
+        <label for="apple">apple</label>
+        <input type="checkbox" id="pineapple" name="check" value="pineapple" v-model="fruits">
+        <label for="pineapple">pineapple</label>
+        <input type="checkbox" id="grape" name="check" value="grape" v-model="fruits">
+        <label for="grape">grape</label>
+
+        <br>
+        <p>toggle: {{ toggle }}</p>
+        <input type="checkbox" v-model="toggle" :true-value="dynamicTrueValue" :false-value="dynamicFalseValue">
+    </div>
+
+    </div>
+
+
+
+
     <script>
         const { createApp, ref } = Vue;
 
@@ -108,6 +129,24 @@
                 }
             }
         }).mount('#step03');
+
+
+        createApp({
+            setup() {
+                const fruits = ref([]);
+                const toggle = ref('선택한 적 없음');
+                const dynamicTrueValue = ref('선택됨');
+                const dynamicFalseValue = ref('선택 안됨');
+                return {
+                    fruits,
+                    toggle,
+                    dynamicTrueValue,
+                    dynamicFalseValue
+                }
+            }
+        }).mount("#step04");
+
+
     </script>
 </body>
 
