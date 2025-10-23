@@ -28,8 +28,8 @@
                 async function updateMessage() {
                     console.log('message에 값 대입(변화) 전 : ', document.querySelector('h1').innerText);
                     message.value = '안녕, 뷰!';
-                    // 함수가 끝나기 전에 바뀐 데이터를 토대로 DOM에 update를 발생시키는 함수(지금 DOM update!)(nextTick())
-                    await nextTick();
+                    // 함수가 끝나기 전에 바뀐 데이터를 토대로 DOM에 update를 발생시키는 함수(지금 DOM update!)
+                    await nextTick(); // 'tick'은 반응형 변수 수정부터 DOM update 사이의 짧은 순간
 
                     console.log('message에 값 대입(변화) 후 : ', document.querySelector('h1').innerText);
                 }

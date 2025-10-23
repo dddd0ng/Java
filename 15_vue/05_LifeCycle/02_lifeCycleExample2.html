@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .rootContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .appContainer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            border: 1px dotted black;
+            width: 80%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wine-card {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            height: 300px;
+            border: 1px solid black;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .image {
+            width: 70px;
+            height: 100px;
+        }
+
+        .btn-group {
+            display: flex;
+            width: 60%;
+            justify-content: space-around;
+        }
+
+        .btn {
+            width: 50px;
+            height: 50px;
+        }
+
+        .neon {
+            color: #fff;
+            text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+            animation: neonAnimation 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonAnimation {
+            from {
+                text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f, 0 0 70px #00f, 0 0 80px #00f, 0 0 100px #00f, 0 0 150px #00f;
+            }
+
+            to {
+                text-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 15px #00f, 0 0 20px #00f, 0 0 35px #00f, 0 0 40px #00f, 0 0 50px #00f, 0 0 75px #00f;
+            }
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app" class="rootContainer">
+        <h1 :class="{neon: isMounted}">인생 와인</h1>
+        <div v-if="loadingState">
+            로딩을 준비합니다.
+        </div>
+        <template v-else>
+            <div class="btn-group">
+                <button class="btn">back</button>
+                <button class="btn">next</button>
+            </div>
+        </template>
+    </div>
+    <script>
+        const { createApp, onMounted, reactive, toRefs } = Vue;
+
+        const useWines = () => {
+            const state = reactive({
+                loadingState: true,
+                isMounted: false
+            });
+
+            const fetchWines = async () => {
+                const response = await fetch('https://api.sampleapis.com/wines/reds');
+                const data = await response.json();
+                console.log('가져온 와인 데이터:', data);
+            }
+
+            onMounted(async () => {
+                console.log('DOM이 Mount 된 후(완료)...');
+
+                /*
+                    fetch를 포함한 함수를 다시 await하는 이유
+                    1. 비동기 함수를 포함한 함수는 그 자체도 비동기 함수다.
+                    2. async함수의 반환값은 Promise 객체기 때문이다.(지금은 반환값이 없긴 함)
+                */
+                await fetchWines();    // 와인 api 사이트에 통신 끝나고 나면
+
+                state.loadingState = false;   // '로딩 중' 글자 제거
+                state.isMounted = true;       // '인생 와인'에 css 추가
+            })
+
+            /* state가 관리중인 객체의 각 프로퍼티를 뜯어서 각각 ref로 관리되게 한 후 다시 객체로 만들어 반환 */
+            return { ...toRefs(state) };
+        };
+
+        createApp({
+            setup() {
+
+                /* useWines가 반환한 객체의 각 ref들을 뽑아 객체 구조 분해 할당 */
+                const { loadingState, isMounted } = useWines();
+
+                return {
+                    isMounted,
+                    loadingState
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>
