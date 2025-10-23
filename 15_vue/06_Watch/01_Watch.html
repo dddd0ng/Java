@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>Document</title>
 </head>
+
 <body>
 
     <!-- 감시 대상이 1개 일 때 -->
@@ -31,7 +33,7 @@
         <button @click="z++;">z++</button>
     </div>
     <script>
-        const {createApp, ref, watch} = Vue;
+        const { createApp, ref, watch } = Vue;
 
         /*
             watch:
@@ -44,6 +46,9 @@
             2. callback: 변경 감지 시 수행할 동작
             3. newVal: 현재 입력된 새로운 값
             4. oldVal: 입력 이전의 값
+
+            첫번째 인수의 의미 : 감시대상, 감시대상을 활용하는 콜백함수
+            두번째 인수의 의미 : 감시대상이 변하면 시행되는 콜백함수
         */
         createApp({
             setup() {
@@ -51,7 +56,7 @@
                 const previousValue = ref('');
 
                 watch(currentValue, (newVal, oldVal) => {
-                    if(newVal !== previousValue.value) {
+                    if (newVal !== previousValue.value) {
                         console.log('newVal:', newVal);
                         console.log('oldVale:', oldVal);
                         console.log('previousValue:', previousValue);
@@ -81,12 +86,22 @@
 
                   (실제 활용 시 자주 첫번째 콜백 함수가 한번 자동실행되는 것을 활용하는 편이다.)
                 */
-                watch(() => {
-                    console.log('실행되나');
-                    return x.value + y.value;
-                }, (result) => {
-                    sum.value = result;
-                });
+                // watch(() => {
+                //     console.log('실행되나');
+                //     return x.value + y.value;
+                // }, (result) => {
+                //     sum.value = result;
+                // });
+
+
+                // x,y,z 반응형 변수들 중에 어느 하나라도 변화가 생기면 콜백 함수 실행
+                watch([x, y, z], (newVal, oldVal) => {
+                    console.log('newVal', newVal);
+                    console.log('oldVal', oldVal);
+
+                    sum.value = x.value + y.value + z.value;
+                })
+
 
                 return {
                     x, y, z, sum
@@ -95,4 +110,5 @@
         }).mount('#step02');
     </script>
 </body>
+
 </html>
