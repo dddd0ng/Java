@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- 감시 대상이 1개 일 때 -->
+    <div id="step01">
+        <p>
+            현재 값: {{ currentValue }}
+        </p>
+        <p>
+            이전 값: {{ previousValue }}
+        </p>
+        <p>
+            입력 받는 값: <input type="text" v-model="currentValue">
+        </p>
+    </div>
+
+    <!-- 감시 대상이 2개 이상일 때 -->
+    <div id="step02">
+        <p>
+            {{ sum }}
+        </p>
+        <button @click="x++;">x++</button>
+        <button @click="y++;">y++</button>
+        <button @click="z++;">z++</button>
+    </div>
+    <script>
+        const {createApp, ref, watch} = Vue;
+
+        /*
+            watch:
+            데이터의 변경을 감지하고 그에 따라 추가 동작을 수행할 수 있다. 
+            watch함수는 vue 인스턴스가 생성될 때 setup 함수 내부에서 사용된다. 
+
+            [표현식]
+            watch(target, callback(newVal, oldVal) => {})
+            1. target: 변경을 감지할 속성
+            2. callback: 변경 감지 시 수행할 동작
+            3. newVal: 현재 입력된 새로운 값
+            4. oldVal: 입력 이전의 값
+        */
+        createApp({
+            setup() {
+                const currentValue = ref('');
+                const previousValue = ref('');
+
+                watch(currentValue, (newVal, oldVal) => {
+                    if(newVal !== previousValue.value) {
+                        console.log('newVal:', newVal);
+                        console.log('oldVale:', oldVal);
+                        console.log('previousValue:', previousValue);
+
+                        previousValue.value = oldVal;
+                    }
+                });
+
+                return {
+                    currentValue,
+                    previousValue
+                }
+            }
+        }).mount('#step01');
+
+        createApp({
+            setup() {
+                const x = ref(0);
+                const y = ref(0);
+                const z = ref(0);
+                const sum = ref(0);
+
+                /*
+                  첫 번째 콜백함수는 자동 한번 실행 되어 콜백함수에서 쓰인 반응형 변수들을 인지하고 추적한다.(x, y인지)
+                  두 번째 콜백함수는 추적대상(x, y)들이 변화가 생기면 자동 호출된다.
+                  (추적 대상들을 활용한 첫번째 콜백의 반환형을 가지고 시작)
+
+                  (실제 활용 시 자주 첫번째 콜백 함수가 한번 자동실행되는 것을 활용하는 편이다.)
+                */
+                watch(() => {
+                    console.log('실행되나');
+                    return x.value + y.value;
+                }, (result) => {
+                    sum.value = result;
+                });
+
+                return {
+                    x, y, z, sum
+                }
+            }
+        }).mount('#step02');
+    </script>
+</body>
+</html>
