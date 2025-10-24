@@ -15,6 +15,8 @@ const router = createRouter({
         {
             path: '/nested',
             component: RootRouter,
+
+            // children 이후 (중첩된 라우팅) 경로는 '/'를 사용하면 안된다.(첫 경로는 '/'를 써야 함)
             children: [
                 {
                     path: 'home',
