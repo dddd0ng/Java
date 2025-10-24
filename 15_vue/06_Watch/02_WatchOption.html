@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="step01">
+        <p>
+            {{num}}
+        </p>
+
+        <button @click="num++">num++</button>
+    </div>
+
+    <div id="step02">
+        <p>
+            {{num}}
+        </p>
+
+        <button @click="num++">num++</button>
+    </div>
+
+
+    <script>
+
+        const { createApp, ref, watch } = Vue;
+        createApp({
+            setup() {
+                const num = ref(0);
+
+                /*
+                immediate 옵션을 watch에 추가하면 두번째 인수로 던져진 콜백함수가 자동 실행된다.
+                (내부적으로는) beforeCreate/created훅과 동등한 시점(composition api(Vue3버전) setup()시점))
+                (컴포넌트가 화면에 마운트(부착) 되기 이전에 해야할 일이 잇으면 콜백에 작성할 수 있다.)
+                (감시대상 변화시점 + setup시점)
+                */
+
+                watch(num, (newVal, oldVal) => {
+                    console.log('New Val : ', newVal);
+                    console.log('Old Val : ', oldVal);
+                },
+                    { immediate: true }
+                )
+                return {
+                    num
+                }
+
+            }
+
+        }).mount('#step01');
+
+
+        createApp({
+            setup() {
+                const num = ref(0);
+
+                /*
+                once 옵션(함수)은 감시 대상의 변화를 감지하고 콜백함수를 단 한번만 실행되게 한다.
+                */
+                watch(num, (newVal, oldVal) => {
+                    console.log('New Val : ', newVal);
+                    console.log('Old Val : ', oldVal);
+                }
+                    ,
+                    { once: true }
+                )
+                return {
+                    num
+                }
+
+            }
+
+        }).mount('#step02');
+
+
+
+    </script>
+</body>
+
+</html>
