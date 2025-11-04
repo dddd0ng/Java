@@ -3,7 +3,7 @@
 services:
   springboot-app:
     build:
-      context: ./chap01_01_bootproject
+      context: /Users/dong/Desktop/02_java/16_devops/chap01_01_bootproject
       dockerfile: Dockerfile
     image: kdg1644/boot_19_project
     container_name: boot-container
@@ -13,8 +13,9 @@ services:
       - camp-net
 
   vue-app:
+    platform: linux/amd64
     build:
-      context: ./chap01_02_vueproject
+      context: /Users/dong/Desktop/02_java/16_devops/chap01_02_vueproject
       dockerfile: Dockerfile
     image: kdg1644/vue_19_project
     container_name: vue-container

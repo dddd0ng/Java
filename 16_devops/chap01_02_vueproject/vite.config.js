@@ -26,7 +26,9 @@ export default defineConfig({
         // target: 'http://localhost:8055',
 
         /* docker-compose 이후 도커 네트워크 활용 */
-        target: 'http://springboot-app:7777',
+        // target: 'http://springboot-app:7777',
+        // changeOrigin: true,
+        target: 'http://localhost:8011', // 실제 백엔드
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
