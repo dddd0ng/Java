@@ -1,0 +1,85 @@
+services:
+  mariadb-persist:
+    platform: linux/amd64        # M1이면 이거 있으면 더 안전
+    image: mariadb:latest
+    container_name: mariadb-persist
+    environment:
+      - MARIADB_ROOT_PASSWORD=root1234
+      - MARIADB_DATABASE=calcdb
+    ports:
+      - "3310:3306"
+    volumes:
+      - mariadb-volume:/var/lib/mysql
+      - mariadb-logs:/var/log/mysql
+    networks:
+      - camp-net
+    restart: always
+    ## error.log : 에러 발생시 쌓이는 로그 파일
+    ## general.log : 일반 쿼리 로그가 쌓이는 로그 파일
+    ## slow.log : 느린 쿼리 로그가 쌓이는 로그 파일(2초 이상)
+
+    ## 실행중인 mariadb-persist 컨테이너로 들어가서 log 파일 확인
+    ## docker exec -it mariadb-persist tail -f /var/log/mysql/general.log
+    command: >
+      --log-error=/var/log/mysql/error.log
+      --general-log=1
+      --general-log-file=/var/log/mysql/general.log
+      --slow-query-log=1
+      --slow-query-log-file=/var/log/mysql/slow.log
+      --long-query-time=2
+
+    
+    ## healthcheck (컨테이너 상태 확인)
+    ## - DB가 완전히 준비 되었는지 여러번 시도
+    ## test : 실행 할 감시대상(DB 연결 + InnoDB 초기화 확인)
+    ## interval : 10초마다 체크
+    ## timeout : 5초간 대기하다 응답 없으면 실패
+    ## retries : 5번 시도
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  springboot-app:
+    platform: linux/amd64        # M1에서 gradle/alpine 조합 깨지는 거 예방
+    build:
+      context: ./chap02_01_bootproject
+      # dockerfile: Dockerfile   # 이름 다르면 여기 적어
+    image: kdg1644/calc-volume:latest
+    container_name: spring-calc-with-db
+    ports:
+      - "8055:7777"              # 👉 여기 컨테이너가 정말 7777로 떠야 함
+      # 스프링이 8080이라면 이렇게 바꿔:
+      # - "8055:8080"
+    networks:
+      - camp-net
+    depends_on:
+      mariadb-persist:
+        condition: service_healthy
+    restart: always
+
+  vue-app:
+    platform: linux/amd64
+    build:
+      context: ./chap02_02_vueproject
+      # dockerfile: Dockerfile
+    image: kdg1644/vue_19_project
+    container_name: vue-container-integrated
+    ports:
+      - "8011:5173"
+    networks:
+      - camp-net
+    depends_on:
+      - springboot-app
+    restart: always
+
+volumes:
+  mariadb-volume:
+    driver: local
+  mariadb-logs:
+    driver: local
+
+networks:
+  camp-net:
+    driver: bridge
