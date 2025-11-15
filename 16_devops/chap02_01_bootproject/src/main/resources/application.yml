@@ -4,7 +4,11 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://mariadb-persist:3306/calcdb
+    # docker-compose용
+    # url: jdbc:mariadb://mariadb-persist:3306/calcdb
+
+    #kubernetes용(section03)
+    url: jdbc:mariadb://mariadb003ser:3310/calcdb
     username: root
     password: root1234
 

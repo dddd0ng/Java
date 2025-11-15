@@ -81,7 +81,16 @@
 
     // api는 나 자신에서 위장하는거라 빼버림
         /* 6. 백엔드에서 CORS, 프론트에서 X (Vue + Spring Boot + MariaDB(Docker-Compose))*/
-    const response = await fetch(`http://localhost:8055/plus`, {
+    // const response = await fetch(`http://localhost:8055/plus`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8;'
+    //   },
+    //   body: JSON.stringify({num1: num1.value, num2: num2.value})
+    // })
+
+    // 7. 백엔드, 프론트에서 CORS X (Vue + Spring Boot + MraiaDB(K8S))
+        const response = await fetch(`http://localhost/boot/plus`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8;'
