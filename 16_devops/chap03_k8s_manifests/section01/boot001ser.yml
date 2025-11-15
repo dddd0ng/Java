@@ -7,8 +7,8 @@ spec:
                         # k8s의 클러스터 외부에서 워커노드로 직접 접근하기 위해 노드 노출
   ports:
   - port: 8001
-    targetPort: 7777
+    targetPort: 7777    # 이 포트의 컨테이너가 들고 있는 POD가 타겟(POD의 포트 번호는 아님)
     protocol: TCP
     nodePort: 30001     # 외부에서 워커노드에 접근 할 때 사용할 노드 포트
   selector:
-    app: boot001kube
+    app: boot001kube    # dep의 selector:app:의 이름과 일치해야함

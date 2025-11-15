@@ -64,7 +64,7 @@
     // })
     
 // 7. 백엔드에서 x, 프론트에서도 x (k8s의 ingress를 활용한 방식)
-    // const response = await fetch(`http://localhost:80/boot/plus`, { 이거랑 아래랑 같음
+    // const response = await fetch(`http://localhost:80/boot/plus`, { 이거랑 아래랑 같음(포트80은 생략 가능)
     const response = await fetch(`http://localhost/boot/plus`, {
       method: 'POST',
       headers: {
